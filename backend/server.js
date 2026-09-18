@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
@@ -19,10 +20,13 @@ app.use(express.urlencoded({ limit: '25mb', extended: true }));
 // Connect to MongoDB with fallback
 mongoose.set('bufferCommands', false);
 mongoose.connect(MONGO_URI, {
-  serverSelectionTimeoutMS: 2000
+  serverSelectionTimeoutMS: 8000
 })
   .then(() => {
-    console.log(`🍃 Connected to MongoDB database: ${MONGO_URI}`);
+    const maskedUri = MONGO_URI.includes('@') 
+      ? MONGO_URI.replace(/:([^:@]+)@/, ':****@') 
+      : MONGO_URI;
+    console.log(`🍃 Connected to MongoDB database: ${maskedUri}`);
   })
   .catch((err) => {
     console.warn(`⚠️ MongoDB connection error (using local database store fallback): ${err.message}`);
