@@ -249,23 +249,13 @@ export default function AdminDashboard({ currentUser, onOpenEnquiry, onNavigateT
   }
 
   return (
-    <div className="section-container animate-fade-in" style={{ paddingBottom: '6rem' }}>
+    <div className="admin-section-container animate-fade-in">
       
       {/* Admin Top Header Banner */}
-      <div style={{
-        background: 'linear-gradient(135deg, #0b2b26 0%, #164e43 60%, #4a0e17 100%)',
-        color: '#ffffff',
-        borderRadius: '20px',
-        padding: '2rem',
-        marginBottom: '2rem',
-        boxShadow: '0 12px 35px rgba(11, 43, 38, 0.25)',
-        border: '1.5px solid var(--accent-gold)',
-        position: 'relative',
-        overflow: 'hidden'
-      }}>
+      <div className="admin-header-banner">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1.2rem', position: 'relative', zIndex: 2 }}>
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.6rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.6rem', flexWrap: 'wrap' }}>
               <span className="gold-badge" style={{ background: '#d4af37', color: '#0b2b26', fontWeight: 700 }}>
                 <ShieldCheck size={14} /> Master Tailor Administrator
               </span>
@@ -277,19 +267,19 @@ export default function AdminDashboard({ currentUser, onOpenEnquiry, onNavigateT
             <h1 style={{ fontSize: '2.2rem', fontFamily: 'var(--font-serif)', color: '#ffffff', marginBottom: '0.4rem' }}>
               Nakshatra Admin Studio
             </h1>
-            <p style={{ color: '#e2e8f0', fontSize: '0.95rem', maxWidth: '650px' }}>
+            <p style={{ color: '#e2e8f0', fontSize: '0.92rem', maxWidth: '650px', lineHeight: 1.5 }}>
               Upload and manage your boutique collection designs, edit photos, and update the live catalog.
             </p>
           </div>
 
-          <div style={{ background: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(8px)', padding: '0.8rem 1.2rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.2)' }}>
-            <div style={{ fontSize: '0.75rem', color: 'var(--accent-gold)', textTransform: 'uppercase', fontWeight: 700 }}>
+          <div style={{ background: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(8px)', padding: '0.75rem 1.1rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.2)' }}>
+            <div style={{ fontSize: '0.72rem', color: 'var(--accent-gold)', textTransform: 'uppercase', fontWeight: 700 }}>
               Logged-in Admin Account
             </div>
-            <strong style={{ fontSize: '1rem', color: '#ffffff', display: 'block' }}>
+            <strong style={{ fontSize: '0.95rem', color: '#ffffff', display: 'block' }}>
               {currentUser?.name || 'Nakshatradesign'}
             </strong>
-            <span style={{ fontSize: '0.82rem', color: '#cbd5e1' }}>
+            <span style={{ fontSize: '0.8rem', color: '#cbd5e1' }}>
               📞 +91 91235 00065
             </span>
           </div>
@@ -298,41 +288,41 @@ export default function AdminDashboard({ currentUser, onOpenEnquiry, onNavigateT
         {/* Quick Stats Grid */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))',
-          gap: '1rem',
-          marginTop: '1.8rem',
-          paddingTop: '1.4rem',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(110px, 1fr))',
+          gap: '0.8rem',
+          marginTop: '1.5rem',
+          paddingTop: '1.2rem',
           borderTop: '1px solid rgba(255,255,255,0.15)'
         }}>
           <div style={{ textAlign: 'center' }}>
-            <div style={{ fontSize: '1.6rem', fontWeight: 800, color: 'var(--accent-gold)' }}>
+            <div style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--accent-gold)' }}>
               {designs.length}
             </div>
-            <div style={{ fontSize: '0.78rem', color: '#cbd5e1' }}>Catalog Designs</div>
+            <div style={{ fontSize: '0.75rem', color: '#cbd5e1' }}>Catalog Designs</div>
           </div>
           <div style={{ textAlign: 'center' }}>
-            <div style={{ fontSize: '1.6rem', fontWeight: 800, color: '#6ee7b7' }}>
+            <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#6ee7b7' }}>
               {designs.filter(d => d.category === 'Blouses' || d.category === 'Bridal Aari').length}
             </div>
-            <div style={{ fontSize: '0.78rem', color: '#cbd5e1' }}>Blouse & Aari</div>
+            <div style={{ fontSize: '0.75rem', color: '#cbd5e1' }}>Blouse & Aari</div>
           </div>
           <div style={{ textAlign: 'center' }}>
-            <div style={{ fontSize: '1.6rem', fontWeight: 800, color: '#fbcfe8' }}>
+            <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#fbcfe8' }}>
               {designs.filter(d => d.category === 'Frocks').length}
             </div>
-            <div style={{ fontSize: '0.78rem', color: '#cbd5e1' }}>Frocks & Gowns</div>
+            <div style={{ fontSize: '0.75rem', color: '#cbd5e1' }}>Frocks & Gowns</div>
           </div>
           <div style={{ textAlign: 'center' }}>
-            <div style={{ fontSize: '1.6rem', fontWeight: 800, color: '#fde047' }}>
+            <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#fde047' }}>
               {designs.filter(d => d.category === 'Lehenga' || d.category === 'Skirt Shirt' || d.category === 'Chudithar').length}
             </div>
-            <div style={{ fontSize: '0.78rem', color: '#cbd5e1' }}>Ethnic & Sets</div>
+            <div style={{ fontSize: '0.75rem', color: '#cbd5e1' }}>Ethnic & Sets</div>
           </div>
         </div>
       </div>
 
       {/* Admin Tabs & Refresh Sync Bar */}
-      <div style={{ display: 'flex', gap: '0.8rem', marginBottom: '1.8rem', flexWrap: 'wrap', alignItems: 'center' }}>
+      <div className="admin-tabs-bar" style={{ display: 'flex', gap: '0.8rem', marginBottom: '1.8rem', flexWrap: 'wrap', alignItems: 'center' }}>
         <button
           onClick={() => setActiveTab('upload')}
           className={`tab-button ${activeTab === 'upload' ? 'active' : ''}`}
@@ -399,37 +389,37 @@ export default function AdminDashboard({ currentUser, onOpenEnquiry, onNavigateT
       {/* TAB 1: UPLOAD NEW DESIGN FORM                            */}
       {/* ======================================================== */}
       {activeTab === 'upload' && (
-        <div className="glass-card" style={{ padding: '2.2rem', borderRadius: '18px' }}>
+        <div className="glass-card admin-form-glass-card">
           
-          <div style={{ marginBottom: '1.8rem', borderBottom: '1px solid var(--border-light)', paddingBottom: '1rem' }}>
+          <div style={{ marginBottom: '1.6rem', borderBottom: '1px solid var(--border-light)', paddingBottom: '0.9rem' }}>
             <span className="gold-badge" style={{ marginBottom: '0.4rem' }}>
               <Sparkles size={14} /> Catalog Creator
             </span>
-            <h2 style={{ fontSize: '1.6rem', color: 'var(--primary-emerald)', fontFamily: 'var(--font-serif)' }}>
+            <h2 style={{ fontSize: '1.5rem', color: 'var(--primary-emerald)', fontFamily: 'var(--font-serif)', marginTop: '0.2rem' }}>
               Add & Upload Design Photo
             </h2>
-            <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem', lineHeight: 1.5 }}>
               Upload any dress, blouse, or gown image directly from your device. It will automatically be displayed in the Boutique Lookbook and 3D Coverflow showcase for all customers.
             </p>
           </div>
 
           {/* Success & Error Banners */}
           {successMessage && (
-            <div style={{ background: '#ecfdf5', border: '1.5px solid #10b981', color: '#065f46', padding: '1rem 1.2rem', borderRadius: '10px', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.6rem', fontWeight: 600 }}>
-              <CheckCircle2 size={20} color="#10b981" />
+            <div style={{ background: '#ecfdf5', border: '1.5px solid #10b981', color: '#065f46', padding: '0.9rem 1.1rem', borderRadius: '10px', marginBottom: '1.4rem', display: 'flex', alignItems: 'center', gap: '0.6rem', fontWeight: 600, fontSize: '0.9rem' }}>
+              <CheckCircle2 size={18} color="#10b981" />
               <span>{successMessage}</span>
             </div>
           )}
 
           {errorMessage && (
-            <div style={{ background: '#fef2f2', border: '1.5px solid #ef4444', color: '#991b1b', padding: '1rem 1.2rem', borderRadius: '10px', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.6rem', fontWeight: 600 }}>
-              <AlertCircle size={20} color="#ef4444" />
+            <div style={{ background: '#fef2f2', border: '1.5px solid #ef4444', color: '#991b1b', padding: '0.9rem 1.1rem', borderRadius: '10px', marginBottom: '1.4rem', display: 'flex', alignItems: 'center', gap: '0.6rem', fontWeight: 600, fontSize: '0.9rem' }}>
+              <AlertCircle size={18} color="#ef4444" />
               <span>{errorMessage}</span>
             </div>
           )}
 
           <form onSubmit={handleCreateDesign}>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem' }}>
+            <div className="admin-upload-grid">
               
               {/* Left Column: Image Upload & Preview */}
               <div>
@@ -447,22 +437,8 @@ export default function AdminDashboard({ currentUser, onOpenEnquiry, onNavigateT
                 />
 
                 <div 
+                  className="admin-upload-dropzone"
                   onClick={() => fileInputRef.current?.click()}
-                  style={{
-                    border: '2px dashed var(--accent-gold)',
-                    borderRadius: '16px',
-                    padding: '1.5rem',
-                    textAlign: 'center',
-                    background: 'var(--bg-champagne)',
-                    cursor: 'pointer',
-                    minHeight: '260px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '0.8rem',
-                    transition: 'all 0.25s ease'
-                  }}
                   onMouseOver={e => e.currentTarget.style.background = 'rgba(212, 175, 55, 0.18)'}
                   onMouseOut={e => e.currentTarget.style.background = 'var(--bg-champagne)'}
                 >
@@ -479,13 +455,13 @@ export default function AdminDashboard({ currentUser, onOpenEnquiry, onNavigateT
                     </div>
                   ) : (
                     <>
-                      <div style={{ width: 60, height: 60, borderRadius: '50%', background: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--accent-gold)', boxShadow: '0 4px 10px rgba(0,0,0,0.08)' }}>
-                        <Upload size={28} />
+                      <div style={{ width: 56, height: 56, borderRadius: '50%', background: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--accent-gold)', boxShadow: '0 4px 10px rgba(0,0,0,0.08)' }}>
+                        <Upload size={26} />
                       </div>
-                      <strong style={{ fontSize: '1rem', color: 'var(--primary-emerald)' }}>
+                      <strong style={{ fontSize: '0.98rem', color: 'var(--primary-emerald)' }}>
                         Choose Photo from Device / Camera
                       </strong>
-                      <span style={{ fontSize: '0.82rem', color: 'var(--text-muted)', maxWidth: '260px' }}>
+                      <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', maxWidth: '260px', lineHeight: 1.4 }}>
                         Supports JPEG, PNG, WEBP. Automatically optimized for high resolution display.
                       </span>
                     </>
@@ -493,7 +469,7 @@ export default function AdminDashboard({ currentUser, onOpenEnquiry, onNavigateT
                 </div>
 
                 {/* Or paste Image URL */}
-                <div style={{ marginTop: '1rem' }}>
+                <div style={{ marginTop: '0.9rem' }}>
                   <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.3rem' }}>
                     Or paste Image URL directly:
                   </label>
@@ -508,7 +484,7 @@ export default function AdminDashboard({ currentUser, onOpenEnquiry, onNavigateT
               </div>
 
               {/* Right Column: Design Attributes & Details */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.1rem' }}>
                 
                 {/* Title */}
                 <div>
@@ -526,7 +502,7 @@ export default function AdminDashboard({ currentUser, onOpenEnquiry, onNavigateT
                 </div>
 
                 {/* Category Selection */}
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                <div className="admin-two-fields-row">
                   <div>
                     <label style={{ display: 'block', fontSize: '0.88rem', fontWeight: 700, color: 'var(--primary-emerald)', marginBottom: '0.3rem' }}>
                       Collection Category *
@@ -585,7 +561,7 @@ export default function AdminDashboard({ currentUser, onOpenEnquiry, onNavigateT
                 )}
 
                 {/* Fabric & Embroidery */}
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                <div className="admin-two-fields-row">
                   <div>
                     <label style={{ display: 'block', fontSize: '0.88rem', fontWeight: 700, color: 'var(--primary-emerald)', marginBottom: '0.3rem' }}>
                       Recommended Fabric
@@ -628,11 +604,11 @@ export default function AdminDashboard({ currentUser, onOpenEnquiry, onNavigateT
                 </div>
 
                 {/* Submit Action */}
-                <div style={{ display: 'flex', gap: '1rem', marginTop: '0.5rem', flexWrap: 'wrap' }}>
+                <div style={{ display: 'flex', gap: '0.8rem', marginTop: '0.6rem', flexWrap: 'wrap' }}>
                   <button
                     type="submit"
                     className="btn-gold"
-                    style={{ flex: 1, padding: '0.9rem 1.5rem', fontSize: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}
+                    style={{ flex: '1 1 200px', padding: '0.85rem 1.5rem', fontSize: '0.95rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', fontWeight: 700, borderRadius: '10px' }}
                     disabled={isSubmitting}
                   >
                     <Sparkles size={18} /> {isSubmitting ? 'Uploading & Publishing...' : 'Publish to Lookbook Catalog →'}
@@ -646,7 +622,7 @@ export default function AdminDashboard({ currentUser, onOpenEnquiry, onNavigateT
                       setDescription('');
                       setImagePreview('');
                     }}
-                    style={{ padding: '0.9rem 1.2rem' }}
+                    style={{ padding: '0.85rem 1.2rem', borderRadius: '10px' }}
                   >
                     Clear
                   </button>

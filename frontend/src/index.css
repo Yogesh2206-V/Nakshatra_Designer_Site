@@ -657,6 +657,106 @@ body.dark-theme .chatbot-modal-window [style*="background: #f8fafc"] {
   }
 }
 
+/* ======================================================== */
+/* Admin Studio Responsive Styles                           */
+/* ======================================================== */
+.admin-section-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 6rem 1.5rem;
+}
+
+.admin-header-banner {
+  background: linear-gradient(135deg, #0b2b26 0%, #164e43 60%, #4a0e17 100%);
+  color: #ffffff;
+  border-radius: 20px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 12px 35px rgba(11, 43, 38, 0.25);
+  border: 1.5px solid var(--accent-gold);
+  position: relative;
+  overflow: hidden;
+}
+
+.admin-form-glass-card {
+  padding: 2.2rem;
+  border-radius: 18px;
+}
+
+.admin-upload-grid {
+  display: grid;
+  grid-template-columns: minmax(280px, 1fr) minmax(320px, 1.3fr);
+  gap: 2rem;
+  align-items: start;
+}
+
+.admin-two-fields-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.admin-upload-dropzone {
+  border: 2px dashed var(--accent-gold);
+  border-radius: 16px;
+  padding: 1.5rem;
+  text-align: center;
+  background: var(--bg-champagne);
+  cursor: pointer;
+  min-height: 260px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  transition: all 0.25s ease;
+}
+
+@media (max-width: 768px) {
+  .admin-section-container {
+    padding: 1rem 0.85rem 9rem 0.85rem !important;
+  }
+  
+  .admin-header-banner {
+    padding: 1.25rem 1rem !important;
+    border-radius: 16px !important;
+    margin-bottom: 1.2rem !important;
+  }
+  
+  .admin-header-banner h1 {
+    font-size: 1.55rem !important;
+  }
+  
+  .admin-form-glass-card {
+    padding: 1.25rem 1rem !important;
+    border-radius: 14px !important;
+  }
+  
+  .admin-upload-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.3rem !important;
+  }
+  
+  .admin-two-fields-row {
+    grid-template-columns: 1fr !important;
+    gap: 0.9rem !important;
+  }
+  
+  .admin-upload-dropzone {
+    min-height: 200px !important;
+    padding: 1.2rem 0.8rem !important;
+  }
+
+  .admin-tabs-bar {
+    gap: 0.5rem !important;
+  }
+
+  .admin-tabs-bar .tab-button {
+    font-size: 0.82rem !important;
+    padding: 0.5rem 0.85rem !important;
+  }
+}
+
 /* Animations */
 @keyframes spin {
   from {
