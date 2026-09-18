@@ -14,7 +14,7 @@ import SideNavbar from './components/SideNavbar';
 import ChatbotWidget from './components/ChatbotWidget';
 import WhatsAppWidget from './components/WhatsAppWidget';
 import EnquiryIcon from './components/EnquiryIcon';
-import { CheckCircle2, Compass, PhoneCall, Sparkles } from 'lucide-react';
+import { CheckCircle2, Compass, PhoneCall, Sparkles, ShieldCheck } from 'lucide-react';
 
 import { retrieveUserAvatar, persistUserAvatar } from './utils/avatarStorage';
 import { isExactAdmin } from './utils/adminAuth';
@@ -341,13 +341,51 @@ export default function App() {
           />
         )}
 
-        {/* TAB 5: ADMIN STUDIO (STRICTLY ACCESSIBLE ONLY BY SPECIFIC ADMIN: Nakshatradesign / 9123500065) */}
-        {activeTab === 'admin' && isExactAdmin(currentUser) && (
-          <AdminDashboard 
-            currentUser={currentUser}
-            onOpenEnquiry={handleOpenEnquiry}
-            onNavigateToGallery={() => handleNavigate('gallery')}
-          />
+        {/* TAB 5: ADMIN STUDIO / ADMIN DOMAIN */}
+        {activeTab === 'admin' && (
+          isExactAdmin(currentUser) ? (
+            <AdminDashboard 
+              currentUser={currentUser}
+              onOpenEnquiry={handleOpenEnquiry}
+              onNavigateToGallery={() => handleNavigate('gallery')}
+            />
+          ) : (
+            <div className="section-container" style={{ maxWidth: '560px', margin: '4rem auto', padding: '0 1rem' }}>
+              <div className="glass-card" style={{ padding: '2.5rem', borderRadius: '16px', border: '2px solid #d97706', textAlign: 'center', boxShadow: '0 10px 30px rgba(217, 119, 6, 0.15)' }}>
+                <div style={{ width: 64, height: 64, borderRadius: '50%', background: 'rgba(217, 119, 6, 0.15)', color: '#d97706', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.2rem auto' }}>
+                  <ShieldCheck size={36} />
+                </div>
+                <span className="gold-badge" style={{ marginBottom: '0.6rem', background: '#d97706', color: '#ffffff' }}>
+                  👑 Nakshatra Admin Portal
+                </span>
+                <h2 style={{ fontSize: '1.8rem', color: 'var(--primary-emerald)', fontFamily: 'var(--font-serif)', marginTop: '0.4rem', marginBottom: '0.6rem' }}>
+                  Administrator Authentication Required
+                </h2>
+                <p style={{ color: 'var(--text-muted)', fontSize: '0.92rem', lineHeight: 1.6, marginBottom: '1.8rem' }}>
+                  The Admin Studio is reserved for <strong>Nakshatra Boutique Management</strong> to upload new blouse designs, edit catalog items, and manage customer stitching orders.
+                </p>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+                  <button
+                    className="btn-gold"
+                    onClick={() => {
+                      setAuthMessage('Please log in with your Nakshatra Administrator credentials (9123500065).');
+                      setShowAuthModal(true);
+                    }}
+                    style={{ padding: '0.85rem 1.5rem', fontSize: '1rem', background: 'linear-gradient(135deg, #d97706, #b45309)' }}
+                  >
+                    👑 Log In as Administrator
+                  </button>
+                  <button
+                    className="btn-outline"
+                    onClick={() => handleNavigate('gallery')}
+                    style={{ padding: '0.75rem 1.5rem', fontSize: '0.9rem' }}
+                  >
+                    ← Back to Boutique Lookbook
+                  </button>
+                </div>
+              </div>
+            </div>
+          )
         )}
       </main>
 

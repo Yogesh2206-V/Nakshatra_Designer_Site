@@ -21,7 +21,7 @@ export default function SettingsPage({ currentUser, onOpenAuth, onOpenProfileMod
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
 
-        {/* ADMIN SECTION (Strictly visible ONLY to Specific Admin: Nakshatradesign / 9123500065) */}
+        {/* ADMIN SECTION (Strictly visible ONLY after Login as Exact Admin: 9123500065) */}
         {isExactAdmin(currentUser) && (
           <div>
             <h4 style={{ fontSize: '0.85rem', fontWeight: 700, color: '#d97706', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '0.8rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>

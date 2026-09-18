@@ -53,26 +53,53 @@ export default function AdminDashboard({ currentUser, onOpenEnquiry, onNavigateT
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedFilterCategory, setSelectedFilterCategory] = useState('All');
 
+  // Refresh & Sync status
+  const [lastRefreshed, setLastRefreshed] = useState('');
+  const [refreshToast, setRefreshToast] = useState('');
+
   const fileInputRef = useRef(null);
 
-  // Fetch designs
-  const refreshData = async () => {
+  // Fetch designs & sync live data + empty all input fields
+  const refreshData = async (isManual = false) => {
     setLoading(true);
+
+    // Make the form fields empty on refresh
+    setTitle('');
+    setDescription('');
+    setImagePreview('');
+    setCustomCategory('');
+    setSuccessMessage('');
+    setErrorMessage('');
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+
     try {
       const res = await fetch('/api/designs');
       const data = await res.json();
       if (data.success) {
-        setDesigns(data.designs || []);
+        const freshDesigns = data.designs || [];
+        setDesigns(freshDesigns);
+        const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        setLastRefreshed(timeStr);
+        if (isManual) {
+          setRefreshToast(`Form Cleared & Catalog Synced! (${freshDesigns.length} Live Designs)`);
+          setTimeout(() => setRefreshToast(''), 3000);
+        }
       }
     } catch (err) {
       console.error('Error fetching admin designs:', err);
+      if (isManual) {
+        setRefreshToast('Sync failed: Check connection');
+        setTimeout(() => setRefreshToast(''), 3000);
+      }
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    refreshData();
+    refreshData(false);
   }, []);
 
   // Handle local image file upload & compression
@@ -304,8 +331,8 @@ export default function AdminDashboard({ currentUser, onOpenEnquiry, onNavigateT
         </div>
       </div>
 
-      {/* Admin Tabs */}
-      <div style={{ display: 'flex', gap: '0.8rem', marginBottom: '1.8rem', flexWrap: 'wrap' }}>
+      {/* Admin Tabs & Refresh Sync Bar */}
+      <div style={{ display: 'flex', gap: '0.8rem', marginBottom: '1.8rem', flexWrap: 'wrap', alignItems: 'center' }}>
         <button
           onClick={() => setActiveTab('upload')}
           className={`tab-button ${activeTab === 'upload' ? 'active' : ''}`}
@@ -322,14 +349,50 @@ export default function AdminDashboard({ currentUser, onOpenEnquiry, onNavigateT
           <Layers size={17} /> Manage Catalog ({designs.length})
         </button>
 
-        <button
-          onClick={refreshData}
-          title="Refresh Data"
-          className="btn-outline"
-          style={{ marginLeft: 'auto', padding: '0.5rem 0.9rem', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.3rem' }}
-        >
-          <RefreshCw size={14} className={loading ? 'animate-spin' : ''} /> Refresh
-        </button>
+        {/* Sync Status Badge & Refresh Button */}
+        <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap' }}>
+          {refreshToast ? (
+            <span style={{
+              fontSize: '0.78rem',
+              fontWeight: 600,
+              padding: '0.25rem 0.65rem',
+              borderRadius: '20px',
+              background: '#ecfdf5',
+              color: '#047857',
+              border: '1px solid #a7f3d0',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.3rem',
+              animation: 'fadeIn 0.2s ease'
+            }}>
+              <CheckCircle2 size={13} color="#10b981" /> {refreshToast}
+            </span>
+          ) : lastRefreshed ? (
+            <span style={{ fontSize: '0.76rem', color: 'var(--text-muted)' }}>
+              Last synced: {lastRefreshed}
+            </span>
+          ) : null}
+
+          <button
+            onClick={() => refreshData(true)}
+            disabled={loading}
+            title="Click to fetch latest catalog & orders from server"
+            className="btn-outline"
+            style={{
+              padding: '0.5rem 0.95rem',
+              fontSize: '0.85rem',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.4rem',
+              borderColor: 'var(--accent-gold)',
+              cursor: loading ? 'wait' : 'pointer',
+              fontWeight: 600
+            }}
+          >
+            <RefreshCw size={14} className={loading ? 'animate-spin' : ''} color="var(--accent-gold)" />
+            <span>{loading ? 'Syncing...' : 'Refresh'}</span>
+          </button>
+        </div>
       </div>
 
       {/* ======================================================== */}

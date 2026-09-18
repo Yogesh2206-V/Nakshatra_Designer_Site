@@ -263,7 +263,7 @@ export default function AuthModal({ onClose, onLoginSuccess, message = '' }) {
                 <User size={18} style={{ position: 'absolute', left: 12, top: 12, color: 'var(--accent-gold)' }} />
                 <input
                   type="text"
-                  placeholder="e.g. Meenakshi Sundaram"
+                  placeholder="Enter Name :"
                   value={formData.name}
                   onChange={e => setFormData({ ...formData, name: e.target.value })}
                   style={{
@@ -301,7 +301,7 @@ export default function AuthModal({ onClose, onLoginSuccess, message = '' }) {
               <Phone size={18} style={{ position: 'absolute', left: 12, top: 12, color: isAdminInput ? '#d97706' : 'var(--accent-gold)' }} />
               <input
                 type="text"
-                placeholder="e.g. 9123500065 or client@example.com"
+                placeholder="Enter Number:"
                 value={formData.phoneOrEmail}
                 onChange={e => setFormData({ ...formData, phoneOrEmail: e.target.value })}
                 style={{

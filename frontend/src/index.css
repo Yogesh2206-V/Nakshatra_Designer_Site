@@ -411,16 +411,16 @@ a {
   /* Enabled in Mobile View Only */
   .floating-bottom-nav {
     display: flex !important;
-    bottom: 14px !important;
-    width: calc(100% - 28px) !important;
-    max-width: 460px !important;
-    padding: 0.4rem 0.8rem !important;
-    border-radius: 16px !important;
+    bottom: 12px !important;
+    width: calc(100% - 24px) !important;
+    max-width: 390px !important;
+    padding: 0.25rem 0.5rem !important;
+    border-radius: 24px !important;
   }
 
   .whatsapp-floating-widget {
-    bottom: 74px !important;
-    right: 12px !important;
+    bottom: 78px !important;
+    right: 14px !important;
   }
 
   .chatbot-modal-window {
@@ -655,4 +655,19 @@ body.dark-theme .chatbot-modal-window [style*="background: #f8fafc"] {
   .main-content {
     padding-bottom: 5.5rem;
   }
+}
+
+/* Animations */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 0.8s linear infinite;
+  display: inline-block;
 }

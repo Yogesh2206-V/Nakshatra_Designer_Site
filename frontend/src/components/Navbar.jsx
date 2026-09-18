@@ -94,7 +94,7 @@ export default function Navbar({ activeTab, setActiveTab, currentUser, onOpenAut
             <Settings size={16} /> Settings
           </button>
 
-          {/* Admin Studio Button (Strictly visible ONLY for Nakshatradesign Admin) */}
+          {/* Admin Studio Button (Strictly visible ONLY after Login as Exact Admin: 9123500065) */}
           {isExactAdmin(currentUser) && (
             <button 
               className={`tab-button desktop-only ${activeTab === 'admin' ? 'active' : ''}`}
@@ -105,6 +105,7 @@ export default function Navbar({ activeTab, setActiveTab, currentUser, onOpenAut
                 fontWeight: 700
               }}
               onClick={() => setActiveTab('admin')}
+              title="Nakshatra Admin Studio Portal"
             >
               <ShieldCheck size={16} /> 👑 Admin Studio
             </button>
@@ -136,66 +137,41 @@ export default function Navbar({ activeTab, setActiveTab, currentUser, onOpenAut
             {darkMode ? <Sun size={17} /> : <Moon size={17} />}
           </button>
 
-          {/* Top Right User Profile Image Action */}
+          {/* Top Right User Profile Image Action (Circular Profile Only) */}
           {currentUser ? (
             <button
               onClick={onOpenSideNav}
-              className="user-profile-badge"
+              className="user-profile-avatar-btn"
               style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.45rem',
-                padding: '0.25rem 0.7rem 0.25rem 0.35rem',
-                borderRadius: '24px',
-                background: 'var(--bg-champagne)',
-                border: '1.5px solid var(--accent-gold)',
-                cursor: 'pointer',
-                transition: 'all 0.2s ease',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
-              }}
-              title="Click to open Side Navbar & Profile"
-            >
-              {/* Avatar Circle */}
-              <div style={{
-                width: '32px',
-                height: '32px',
+                width: '36px',
+                height: '36px',
                 borderRadius: '50%',
-                overflow: 'hidden',
                 background: 'linear-gradient(135deg, #0b2b26 0%, #164e43 100%)',
+                border: '2px solid var(--accent-gold)',
+                cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                border: '1.5px solid var(--accent-gold)',
-                flexShrink: 0,
-                position: 'relative'
-              }}>
-                {currentUser.avatar ? (
-                  <img
-                    src={currentUser.avatar}
-                    alt={currentUser.name}
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                  />
-                ) : (
-                  <span style={{ color: '#ffffff', fontWeight: 700, fontSize: '0.85rem' }}>
-                    {currentUser.name ? currentUser.name.charAt(0).toUpperCase() : <User size={16} />}
-                  </span>
-                )}
-              </div>
-
-              <span style={{ fontSize: '0.86rem', fontWeight: 600, color: 'var(--text-dark)', maxWidth: '95px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                {currentUser.name.split(' ')[0]}
-              </span>
-
-              {!currentUser.avatar && (
-                <span style={{
-                  fontSize: '0.68rem',
-                  background: 'var(--accent-gold)',
-                  color: '#0b2b26',
-                  padding: '0.12rem 0.4rem',
-                  borderRadius: '8px',
-                  fontWeight: 700
-                }}>
-                  +Photo
+                padding: 0,
+                overflow: 'hidden',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.12)',
+                transition: 'all 0.2s ease',
+                flexShrink: 0
+              }}
+              title={`Profile: ${currentUser.name} (Click to open menu)`}
+              aria-label="Open Profile & Menu"
+              onMouseOver={e => e.currentTarget.style.transform = 'scale(1.08)'}
+              onMouseOut={e => e.currentTarget.style.transform = 'scale(1.0)'}
+            >
+              {currentUser.avatar ? (
+                <img
+                  src={currentUser.avatar}
+                  alt={currentUser.name}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                />
+              ) : (
+                <span style={{ color: '#ffffff', fontWeight: 700, fontSize: '0.95rem' }}>
+                  {currentUser.name ? currentUser.name.charAt(0).toUpperCase() : <User size={18} />}
                 </span>
               )}
             </button>

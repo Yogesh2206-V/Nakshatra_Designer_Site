@@ -4,7 +4,7 @@ import { Star, MessageSquare, ThumbsUp, Sparkles, CheckCircle2, User, Send, Filt
 
 export default function ReviewsFeedback({ currentUser, onRequireAuth }) {
   const [currentPage, setCurrentPage] = useState(1);
-  const reviewsPerPage = 6;
+  const reviewsPerPage = 1; // Show exactly 1 feedback at a time
   const [selectedPhotoModal, setSelectedPhotoModal] = useState(null);
   const [reviewsList, setReviewsList] = useState([
     {
@@ -618,15 +618,84 @@ export default function ReviewsFeedback({ currentUser, onRequireAuth }) {
         <div>
           <div id="reviews-list-start" />
 
+          {/* Top Feedback Header & Mini Controls */}
+          <div style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginBottom: '1rem',
+            padding: '0.6rem 1rem',
+            background: 'var(--bg-card)',
+            borderRadius: '12px',
+            border: '1px solid var(--border-light)'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <Sparkles size={16} color="var(--accent-gold)" />
+              <span style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--primary-emerald)' }}>
+                Feedback #{safeCurrentPage} <span style={{ fontWeight: 500, color: 'var(--text-muted)' }}>of {totalPages}</span>
+              </span>
+            </div>
+
+            <div style={{ display: 'flex', gap: '0.5rem' }}>
+              <button
+                onClick={() => handlePageChange(safeCurrentPage - 1)}
+                disabled={safeCurrentPage === 1}
+                title="Previous Feedback"
+                style={{
+                  padding: '0.35rem 0.75rem',
+                  fontSize: '0.8rem',
+                  fontWeight: 600,
+                  border: '1px solid',
+                  borderColor: safeCurrentPage === 1 ? 'var(--border-light)' : 'var(--accent-gold)',
+                  background: 'transparent',
+                  color: safeCurrentPage === 1 ? 'var(--text-muted)' : 'var(--text-dark)',
+                  opacity: safeCurrentPage === 1 ? 0.35 : 1,
+                  cursor: safeCurrentPage === 1 ? 'not-allowed' : 'pointer',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.25rem',
+                  borderRadius: '6px',
+                  transition: 'all 0.2s ease'
+                }}
+              >
+                <ChevronLeft size={14} /> Prev
+              </button>
+
+              <button
+                onClick={() => handlePageChange(safeCurrentPage + 1)}
+                disabled={safeCurrentPage >= totalPages}
+                title="Next Feedback"
+                style={{
+                  padding: '0.35rem 0.75rem',
+                  fontSize: '0.8rem',
+                  fontWeight: 600,
+                  border: '1px solid',
+                  borderColor: safeCurrentPage >= totalPages ? 'var(--border-light)' : 'var(--accent-gold)',
+                  background: 'transparent',
+                  color: safeCurrentPage >= totalPages ? 'var(--text-muted)' : 'var(--text-dark)',
+                  opacity: safeCurrentPage >= totalPages ? 0.35 : 1,
+                  cursor: safeCurrentPage >= totalPages ? 'not-allowed' : 'pointer',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.25rem',
+                  borderRadius: '6px',
+                  transition: 'all 0.2s ease'
+                }}
+              >
+                Next <ChevronRight size={14} />
+              </button>
+            </div>
+          </div>
+
           {/* Reviews List (1 Review per page) */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
             {paginatedReviews.map(rev => (
-              <div key={rev.id} className="glass-card review-item-card animate-fade-in" style={{ padding: '1.5rem', border: '1px solid var(--border-light)' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.6rem' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
+              <div key={rev.id} className="glass-card review-item-card animate-fade-in" style={{ padding: '1.6rem', border: '1px solid var(--border-light)', boxShadow: '0 8px 24px rgba(0,0,0,0.06)' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.8rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
                     <div style={{
-                      width: 42,
-                      height: 42,
+                      width: 44,
+                      height: 44,
                       borderRadius: '50%',
                       background: 'linear-gradient(135deg, #0b2b26 0%, #4a0e17 100%)',
                       color: '#d4af37',
@@ -634,13 +703,14 @@ export default function ReviewsFeedback({ currentUser, onRequireAuth }) {
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      fontSize: '1.1rem'
+                      fontSize: '1.15rem',
+                      boxShadow: '0 2px 8px rgba(0,0,0,0.15)'
                     }}>
                       {rev.name.charAt(0)}
                     </div>
                     <div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
-                        <strong style={{ fontSize: '1rem', color: 'var(--primary-emerald)' }}>{rev.name}</strong>
+                        <strong style={{ fontSize: '1.05rem', color: 'var(--primary-emerald)' }}>{rev.name}</strong>
                         {rev.source === 'Justdial Verified' ? (
                           <span style={{ fontSize: '0.72rem', background: '#eff6ff', color: '#1d4ed8', border: '1px solid #bfdbfe', padding: '0.15rem 0.5rem', borderRadius: '10px', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}>
                             <CheckCircle2 size={11} color="#2563eb" /> Justdial Verified
@@ -658,14 +728,14 @@ export default function ReviewsFeedback({ currentUser, onRequireAuth }) {
                   {/* Rating Stars */}
                   <div style={{ display: 'flex', gap: '0.15rem' }}>
                     {[...Array(rev.rating)].map((_, i) => (
-                      <Star key={i} size={16} fill="#d4af37" color="#d4af37" />
+                      <Star key={i} size={17} fill="#d4af37" color="#d4af37" />
                     ))}
                   </div>
                 </div>
 
                 {/* Tags Badges (e.g. Good work, High quality, Quick service, Reasonably priced) */}
                 {rev.tags && rev.tags.length > 0 && (
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', margin: '0.6rem 0 0.8rem 0' }}>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', margin: '0.6rem 0 0.9rem 0' }}>
                     {rev.tags.map((tag, tIdx) => (
                       <span 
                         key={tIdx} 
@@ -687,22 +757,22 @@ export default function ReviewsFeedback({ currentUser, onRequireAuth }) {
                 )}
 
                 {/* Review Text */}
-                <div style={{ marginBottom: '0.8rem' }}>
-                  <span className="gold-badge" style={{ fontSize: '0.75rem', marginBottom: '0.5rem', display: 'inline-block' }}>
+                <div style={{ marginBottom: '0.9rem' }}>
+                  <span className="gold-badge" style={{ fontSize: '0.75rem', marginBottom: '0.6rem', display: 'inline-block' }}>
                     {rev.category}
                   </span>
-                  <p style={{ fontSize: '0.92rem', color: 'var(--text-dark)', lineHeight: 1.6, fontStyle: rev.comment.length < 20 ? 'italic' : 'normal' }}>
+                  <p style={{ fontSize: '0.96rem', color: 'var(--text-dark)', lineHeight: 1.65, fontStyle: rev.comment.length < 20 ? 'italic' : 'normal' }}>
                     "{rev.comment}"
                   </p>
 
                   {/* Customer Attached Photo Thumbnail (if present) */}
                   {rev.photo && (
-                    <div style={{ marginTop: '0.8rem' }}>
+                    <div style={{ marginTop: '0.9rem' }}>
                       <div 
                         onClick={() => setSelectedPhotoModal(rev)}
                         style={{
-                          width: '90px',
-                          height: '90px',
+                          width: '95px',
+                          height: '95px',
                           borderRadius: '10px',
                           overflow: 'hidden',
                           border: '2px solid var(--accent-gold)',
@@ -737,7 +807,7 @@ export default function ReviewsFeedback({ currentUser, onRequireAuth }) {
                           <Eye size={20} />
                         </div>
                       </div>
-                      <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)', display: 'block', marginTop: '0.3rem', cursor: 'pointer' }} onClick={() => setSelectedPhotoModal(rev)}>
+                      <span style={{ fontSize: '0.74rem', color: 'var(--text-muted)', display: 'block', marginTop: '0.35rem', cursor: 'pointer' }} onClick={() => setSelectedPhotoModal(rev)}>
                         📷 1 Photo attached by client (Click to view)
                       </span>
                     </div>
@@ -749,9 +819,9 @@ export default function ReviewsFeedback({ currentUser, onRequireAuth }) {
                   <div className="review-owner-response" style={{
                     borderLeft: '3px solid var(--accent-gold)',
                     borderRadius: '0 8px 8px 0',
-                    padding: '0.8rem 1rem',
-                    margin: '0.8rem 0 0.5rem 0',
-                    fontSize: '0.84rem'
+                    padding: '0.85rem 1rem',
+                    margin: '0.9rem 0 0.6rem 0',
+                    fontSize: '0.85rem'
                   }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.3rem' }}>
                       <span style={{ fontWeight: 700, color: 'var(--primary-emerald)', display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}>
@@ -760,19 +830,19 @@ export default function ReviewsFeedback({ currentUser, onRequireAuth }) {
                       </span>
                       <span style={{ fontSize: '0.74rem', color: 'var(--text-muted)' }}>{rev.ownerResponse.date}</span>
                     </div>
-                    <p style={{ color: 'var(--text-dark)', margin: 0, lineHeight: 1.5, opacity: 0.9 }}>
+                    <p style={{ color: 'var(--text-dark)', margin: 0, lineHeight: 1.55, opacity: 0.9 }}>
                       {rev.ownerResponse.text}
                     </p>
                   </div>
                 )}
 
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '0.6rem', borderTop: '1px solid #f1f5f9', fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '0.6rem' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '0.7rem', borderTop: '1px solid #f1f5f9', fontSize: '0.82rem', color: 'var(--text-muted)', marginTop: '0.7rem' }}>
                   <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-                    <CheckCircle2 size={13} color="#10b981" /> Verified Review
+                    <CheckCircle2 size={14} color="#10b981" /> Verified Review
                   </span>
                   <button
                     onClick={() => handleLike(rev.id)}
-                    style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--primary-emerald)', display: 'flex', alignItems: 'center', gap: '0.3rem', fontWeight: 600 }}
+                    style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--primary-emerald)', display: 'flex', alignItems: 'center', gap: '0.35rem', fontWeight: 600 }}
                   >
                     <ThumbsUp size={14} /> Helpful ({rev.likes})
                   </button>
@@ -788,7 +858,7 @@ export default function ReviewsFeedback({ currentUser, onRequireAuth }) {
               justifyContent: 'space-between',
               alignItems: 'center',
               marginTop: '1.5rem',
-              padding: '0.85rem 1.2rem',
+              padding: '0.9rem 1.25rem',
               background: 'var(--bg-card)',
               borderRadius: '14px',
               border: '1px solid var(--border-light)',
@@ -800,29 +870,29 @@ export default function ReviewsFeedback({ currentUser, onRequireAuth }) {
                 onClick={() => handlePageChange(safeCurrentPage - 1)}
                 disabled={safeCurrentPage === 1}
                 style={{
-                  padding: '0.45rem 0.9rem',
-                  fontSize: '0.85rem',
+                  padding: '0.55rem 1.1rem',
+                  fontSize: '0.88rem',
                   fontWeight: 600,
                   border: '1px solid',
                   borderColor: safeCurrentPage === 1 ? 'var(--border-light)' : 'var(--accent-gold)',
-                  background: 'transparent',
-                  color: safeCurrentPage === 1 ? 'var(--text-muted)' : 'var(--text-dark)',
-                  opacity: safeCurrentPage === 1 ? 0.4 : 1,
+                  background: safeCurrentPage === 1 ? 'transparent' : 'rgba(212, 175, 55, 0.08)',
+                  color: safeCurrentPage === 1 ? 'var(--text-muted)' : 'var(--primary-emerald)',
+                  opacity: safeCurrentPage === 1 ? 0.35 : 1,
                   cursor: safeCurrentPage === 1 ? 'not-allowed' : 'pointer',
                   display: 'inline-flex',
                   alignItems: 'center',
-                  gap: '0.35rem',
+                  gap: '0.4rem',
                   borderRadius: '8px',
                   transition: 'all 0.2s ease'
                 }}
               >
-                <ChevronLeft size={16} /> Prev
+                <ChevronLeft size={17} /> Previous
               </button>
 
               {/* Review Indicator */}
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <span style={{ fontSize: '0.92rem', color: 'var(--text-dark)', fontWeight: 600 }}>
-                  Page <strong style={{ color: 'var(--primary-emerald)', fontSize: '1.08rem' }}>{safeCurrentPage}</strong> of <strong>{totalPages}</strong> ({filteredReviews.length} total reviews)
+                  Feedback <strong style={{ color: 'var(--primary-emerald)', fontSize: '1.15rem' }}>#{safeCurrentPage}</strong> of <strong>{totalPages}</strong>
                 </span>
               </div>
 
@@ -831,23 +901,23 @@ export default function ReviewsFeedback({ currentUser, onRequireAuth }) {
                 onClick={() => handlePageChange(safeCurrentPage + 1)}
                 disabled={safeCurrentPage >= totalPages}
                 style={{
-                  padding: '0.45rem 0.9rem',
-                  fontSize: '0.85rem',
+                  padding: '0.55rem 1.1rem',
+                  fontSize: '0.88rem',
                   fontWeight: 600,
                   border: '1px solid',
                   borderColor: safeCurrentPage >= totalPages ? 'var(--border-light)' : 'var(--accent-gold)',
-                  background: 'transparent',
-                  color: safeCurrentPage >= totalPages ? 'var(--text-muted)' : 'var(--text-dark)',
-                  opacity: safeCurrentPage >= totalPages ? 0.4 : 1,
+                  background: safeCurrentPage >= totalPages ? 'transparent' : 'rgba(212, 175, 55, 0.08)',
+                  color: safeCurrentPage >= totalPages ? 'var(--text-muted)' : 'var(--primary-emerald)',
+                  opacity: safeCurrentPage >= totalPages ? 0.35 : 1,
                   cursor: safeCurrentPage >= totalPages ? 'not-allowed' : 'pointer',
                   display: 'inline-flex',
                   alignItems: 'center',
-                  gap: '0.35rem',
+                  gap: '0.4rem',
                   borderRadius: '8px',
                   transition: 'all 0.2s ease'
                 }}
               >
-                Next <ChevronRight size={16} />
+                Next <ChevronRight size={17} />
               </button>
             </div>
           )}

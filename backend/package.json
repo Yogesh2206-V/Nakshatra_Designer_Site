@@ -13,6 +13,7 @@
     "cors": "^2.8.5",
     "dotenv": "^17.4.2",
     "express": "^4.19.2",
-    "mongoose": "^9.10.0"
+    "mongoose": "^9.10.0",
+    "nakshatra-tailor-fullstack": "file:.."
   }
 }
