@@ -57,6 +57,11 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+// Google Search Console verification handler
+app.get('/google:code.html', (req, res) => {
+  res.type('text/html').send(`google-site-verification: google${req.params.code}.html`);
+});
+
 // Serve frontend build if present
 if (fs.existsSync(distPath)) {
   app.use(express.static(distPath));
@@ -73,6 +78,7 @@ if (fs.existsSync(distPath)) {
       <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="google-site-verification" content="0jegZS-Mpd6_0bjNhtW9s0vXfvNlbuTgxXlRv7epWD4" />
         <title>Nakshatra Designer's API Server</title>
         <style>
           body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #0f172a; color: #f8fafc; margin: 0; padding: 40px 20px; display: flex; justify-content: center; align-items: center; min-height: 80vh; }
