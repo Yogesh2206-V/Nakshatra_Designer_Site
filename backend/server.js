@@ -120,6 +120,6 @@ if (fs.existsSync(distPath)) {
   });
 }
 
-app.listen(PORT, () => {
-  console.log(`✨ Nakshatra Designer's Backend Server running at http://localhost:${PORT}`);
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`✨ Nakshatra Designer's Backend Server running on port ${PORT} (0.0.0.0)`);
 });
