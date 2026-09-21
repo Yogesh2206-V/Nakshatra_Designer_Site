@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://nakshatra-designer-site-1.onrender.com/sitemap.xml
