@@ -31,10 +31,10 @@ export default function Navbar({ activeTab, setActiveTab, currentUser, onOpenAut
         transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
       }}
     >
-      {/* Top Announcement Bar */}
+      {/* Top Announcement Bar (Desktop Only) */}
       <div className="announcement-bar desktop-only">
         <span className="announcement-item">
-          <Sparkles size={14} /> <strong>Nakshatra Boutique:</strong> Custom Blouse, Frock Dress & Saree-to-Frock Conversion Studio!
+          <Sparkles size={15} /> <strong>Nakshatra Boutique:</strong> Custom Blouse, Frock Dress & Saree-to-Frock Conversion Studio!
         </span>
         <a 
           href="https://whatsapp.com/channel/0029VbAFcOK59PwTbzi8m610" 
@@ -45,12 +45,12 @@ export default function Navbar({ activeTab, setActiveTab, currentUser, onOpenAut
         >
           💥 Join WhatsApp Channel
         </a>
-        <a href="tel:+919123500065" className="announcement-item" style={{ display: 'flex', gap: '0.4rem', alignItems: 'center', textDecoration: 'none', color: 'inherit' }}>
-          <PhoneCall size={14} /> In-Shop Visit / Call: <strong>+91 91235 00065</strong>
+        <a href="tel:+919123500065" className="announcement-item" style={{ display: 'flex', gap: '0.35rem', alignItems: 'center', textDecoration: 'none', color: 'inherit' }}>
+          <PhoneCall size={15} /> In-Shop Visit / Call: <strong>+91 91235 00065</strong>
         </a>
       </div>
 
-      {/* Main Compact Navbar */}
+      {/* Main Navbar */}
       <div className="navbar-inner-container section-container">
         {/* Brand Logo */}
         <div 
@@ -58,7 +58,7 @@ export default function Navbar({ activeTab, setActiveTab, currentUser, onOpenAut
           className="navbar-brand"
         >
           <div className="brand-icon-circle">
-            <Scissors size={20} />
+            <Scissors size={18} />
           </div>
           <div>
             <h1 className="brand-title">
@@ -71,30 +71,30 @@ export default function Navbar({ activeTab, setActiveTab, currentUser, onOpenAut
         </div>
 
         {/* Nav Links (Desktop) + Right Actions */}
-        <nav className="navbar-nav-links" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+        <nav className="navbar-nav-links">
           <button 
             className={`tab-button desktop-only ${activeTab === 'gallery' ? 'active' : ''}`}
             onClick={() => setActiveTab('gallery')}
           >
-            <Compass size={16} /> Boutique Lookbook
+            <Compass size={17} /> Boutique Lookbook
           </button>
 
           <button 
             className={`tab-button desktop-only ${activeTab === 'reviews' ? 'active' : ''}`}
-            style={{ borderColor: '#d4af37' }}
+            style={{ borderColor: activeTab === 'reviews' ? 'var(--accent-gold)' : 'var(--border-light)' }}
             onClick={() => setActiveTab('reviews')}
           >
-            <Star size={16} fill={activeTab === 'reviews' ? "#d4af37" : "none"} /> Reviews & Feedback
+            <Star size={17} fill={activeTab === 'reviews' ? "#d4af37" : "none"} color={activeTab === 'reviews' ? "#d4af37" : "currentColor"} /> Reviews & Feedback
           </button>
 
           <button 
             className={`tab-button desktop-only ${activeTab === 'settings' ? 'active' : ''}`}
             onClick={() => setActiveTab('settings')}
           >
-            <Settings size={16} /> Settings
+            <Settings size={17} /> Settings
           </button>
 
-          {/* Admin Studio Button (Strictly visible ONLY after Login as Exact Admin: 9123500065) */}
+          {/* Admin Studio Button (Strictly visible ONLY after Login as Exact Admin) */}
           {isExactAdmin(currentUser) && (
             <button 
               className={`tab-button desktop-only ${activeTab === 'admin' ? 'active' : ''}`}
@@ -107,7 +107,7 @@ export default function Navbar({ activeTab, setActiveTab, currentUser, onOpenAut
               onClick={() => setActiveTab('admin')}
               title="Nakshatra Admin Studio Portal"
             >
-              <ShieldCheck size={16} /> 👑 Admin Studio
+              <ShieldCheck size={17} /> 👑 Admin Studio
             </button>
           )}
 
@@ -116,12 +116,13 @@ export default function Navbar({ activeTab, setActiveTab, currentUser, onOpenAut
             onClick={onToggleDarkMode}
             title={darkMode ? "Switch to Normal Light Mode" : "Switch to Dark Mode"}
             aria-label="Toggle Theme"
+            className="theme-toggle-btn"
             style={{
-              width: '34px',
-              height: '34px',
-              borderRadius: '50%',
-              background: darkMode ? '#0b2b26' : '#faf6f0',
-              border: '1px solid var(--accent-gold)',
+              width: '36px',
+              height: '36px',
+              borderRadius: '8px',
+              background: darkMode ? '#0f2724' : '#faf6f0',
+              border: '1px solid var(--border-light)',
               color: darkMode ? '#fbbf24' : '#b8860b',
               display: 'flex',
               alignItems: 'center',
@@ -131,8 +132,6 @@ export default function Navbar({ activeTab, setActiveTab, currentUser, onOpenAut
               padding: 0,
               flexShrink: 0
             }}
-            onMouseOver={e => e.currentTarget.style.transform = 'scale(1.1)'}
-            onMouseOut={e => e.currentTarget.style.transform = 'scale(1.0)'}
           >
             {darkMode ? <Sun size={17} /> : <Moon size={17} />}
           </button>
@@ -147,21 +146,19 @@ export default function Navbar({ activeTab, setActiveTab, currentUser, onOpenAut
                 height: '36px',
                 borderRadius: '50%',
                 background: 'linear-gradient(135deg, #0b2b26 0%, #164e43 100%)',
-                border: '2px solid var(--accent-gold)',
+                border: '1.5px solid var(--accent-gold)',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 padding: 0,
                 overflow: 'hidden',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.12)',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
                 transition: 'all 0.2s ease',
                 flexShrink: 0
               }}
               title={`Profile: ${currentUser.name} (Click to open menu)`}
               aria-label="Open Profile & Menu"
-              onMouseOver={e => e.currentTarget.style.transform = 'scale(1.08)'}
-              onMouseOut={e => e.currentTarget.style.transform = 'scale(1.0)'}
             >
               {currentUser.avatar ? (
                 <img
@@ -170,8 +167,8 @@ export default function Navbar({ activeTab, setActiveTab, currentUser, onOpenAut
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />
               ) : (
-                <span style={{ color: '#ffffff', fontWeight: 700, fontSize: '0.95rem' }}>
-                  {currentUser.name ? currentUser.name.charAt(0).toUpperCase() : <User size={18} />}
+                <span style={{ color: '#ffffff', fontWeight: 700, fontSize: '0.88rem' }}>
+                  {currentUser.name ? currentUser.name.charAt(0).toUpperCase() : <User size={17} />}
                 </span>
               )}
             </button>
@@ -194,20 +191,19 @@ export default function Navbar({ activeTab, setActiveTab, currentUser, onOpenAut
               borderRadius: '8px',
               background: 'var(--primary-emerald)',
               color: '#ffffff',
-              border: '1px solid var(--border-gold)',
+              border: '1px solid var(--emerald-light)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               cursor: 'pointer',
               boxShadow: 'var(--shadow-sm)',
               transition: 'all 0.2s ease',
-              padding: 0
+              padding: 0,
+              flexShrink: 0
             }}
             title="Open Side Menu"
-            onMouseOver={e => e.currentTarget.style.transform = 'scale(1.06)'}
-            onMouseOut={e => e.currentTarget.style.transform = 'scale(1.0)'}
           >
-            <Menu size={20} />
+            <Menu size={18} />
           </button>
 
         </nav>

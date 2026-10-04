@@ -2094,6 +2094,479 @@
       "status": "Scheduled"
     }
   ],
+  "reviews": [
+    {
+      "id": 201,
+      "name": "Jeeva Annadurai",
+      "location": "Tiruchengode",
+      "rating": 5,
+      "date": "22 Feb 2025",
+      "category": "Bridal Aari Work",
+      "comment": "I had an excellent experience at Nakshatra Designer's! Their quick service and on-time delivery exceeded my expectations. The management is highly efficient, ensuring smooth operations throughout. The quality of work was outstanding, and I found their prices to be reasonably priced for the high standards they maintain. Highly recommend for all stitching and design needs!",
+      "tags": [
+        "Good work",
+        "High quality",
+        "Quick service",
+        "On-time delivery",
+        "Good management",
+        "Reasonably priced"
+      ],
+      "photo": "/asset/blouses/blouse_61.jpeg",
+      "verified": true,
+      "source": "Justdial Verified",
+      "likes": 24,
+      "ownerResponse": {
+        "author": "Nakshatra Designer's",
+        "date": "15 Jun",
+        "text": "Appreciate the positive feedback on service and quality. It means a lot to know the experience met expectations."
+      }
+    },
+    {
+      "id": 202,
+      "name": "MOWNIKA",
+      "location": "Tiruchengode",
+      "rating": 5,
+      "date": "22 Aug",
+      "category": "Custom Saree Blouse",
+      "comment": "The stitching is very neat and good. The quality is also nice, and I am satisfied with the finishing.",
+      "tags": [
+        "Good work",
+        "Neat Stitching",
+        "Quality Finish"
+      ],
+      "verified": true,
+      "source": "Justdial Verified",
+      "likes": 15,
+      "ownerResponse": {
+        "author": "Nakshatra Designer's",
+        "date": "22 Aug",
+        "text": "Appreciate how neat the stitching looks and that the finish turned out well."
+      }
+    },
+    {
+      "id": 203,
+      "name": "Selvi Lakshmanan",
+      "location": "Tiruchengode",
+      "rating": 5,
+      "date": "07 Jul",
+      "category": "Custom Saree Blouse",
+      "comment": "I recently had the pleasure of working with Nakshatra Designer's, and I must say, their service is exceptional! The good work they deliver is evident in every detail, showcasing meticulous finishing that truly stands out. They are remarkably punctual with on-time delivery and offer reasonably priced options. Plus, their quick service is a bonus! Don't miss out on their seasonal deals – they're fantastic! Highly recommend!",
+      "tags": [
+        "Good work",
+        "Detailed finishing",
+        "Quick service",
+        "On-time delivery",
+        "Reasonably priced",
+        "Seasonal deals"
+      ],
+      "verified": true,
+      "source": "Justdial Verified",
+      "likes": 19,
+      "ownerResponse": {
+        "author": "Nakshatra Designer's",
+        "date": "07 Jul",
+        "text": "Thanks for the feedback. We're glad the details and timing worked well for you."
+      }
+    },
+    {
+      "id": 204,
+      "name": "Jaya",
+      "location": "Tiruchengode West",
+      "rating": 5,
+      "date": "16 Jun",
+      "category": "Designer Frock",
+      "comment": "I recently had an excellent experience with Nakshatra Designers. They provided high-quality work that truly impressed me. The service was quick, and they delivered on time, which I really appreciated. I loved how customizable their options were, allowing for detailed finishing to match my needs. Plus, their prices are reasonable! I highly recommend them for any tailoring and service needs!",
+      "tags": [
+        "Good work",
+        "High quality",
+        "Detailed finishing",
+        "Customisable",
+        "Quick service",
+        "On-time delivery",
+        "Reasonably priced"
+      ],
+      "verified": true,
+      "source": "Justdial Verified",
+      "likes": 17,
+      "ownerResponse": {
+        "author": "Nakshatra Designer's",
+        "date": "16 Jun",
+        "text": "Appreciate you sharing how satisfied you were with the service."
+      }
+    },
+    {
+      "id": 205,
+      "name": "Megala G",
+      "location": "Tiruchengode",
+      "rating": 5,
+      "date": "26 Jul 2025",
+      "category": "Custom Saree Blouse",
+      "comment": "I had a great experience with Nakshatra Designer's! They delivered on time, which was really impressive. The service was quick and efficient, making the whole process easy for me. I appreciated their professionalism and attention to detail. If you need to stitch anything, I highly recommend Nakshatra Designer's! Excellent work overall! Finishing is very nice",
+      "tags": [
+        "Quick service",
+        "On-time delivery",
+        "Attention to detail",
+        "Excellent Finishing"
+      ],
+      "verified": true,
+      "source": "Justdial Verified",
+      "likes": 13
+    },
+    {
+      "id": 206,
+      "name": "Ranjidha Shasmitha GR",
+      "location": "Namakkal",
+      "rating": 5,
+      "date": "11 Mar 2025",
+      "category": "Bridal Aari Work",
+      "comment": "I had an excellent experience at Nakshatra Designer's! Their reasonably priced services exceeded my expectations. The quality of work was outstanding, with detailed finishing that truly impressed me. They delivered on time and provided quick service without compromising on craftsmanship. Highly recommend for anyone needing reliable tailoring and design services!",
+      "tags": [
+        "Good work",
+        "High quality",
+        "Detailed finishing",
+        "Quick service",
+        "On-time delivery",
+        "Reasonably priced"
+      ],
+      "verified": true,
+      "source": "Justdial Verified",
+      "likes": 22,
+      "ownerResponse": {
+        "author": "Nakshatra Designer's",
+        "date": "15 Jun",
+        "text": "Thanks for the kind words — it's great to hear the work met your expectations."
+      }
+    },
+    {
+      "id": 207,
+      "name": "SUREKA S",
+      "location": "Tiruchengode",
+      "rating": 5,
+      "date": "26 Feb 2025",
+      "category": "Custom Saree Blouse",
+      "comment": "I had a great experience with Nakshatra Designer's. Their prices are reasonable, which I really liked. The service was quick, and they delivered on time. The work they did was very good and high quality. I also noticed the detailed finishing in their work. Overall, I am very happy with my interaction with Nakshatra Designer's!",
+      "tags": [
+        "Good work",
+        "High quality",
+        "Detailed finishing",
+        "Quick service",
+        "On-time delivery",
+        "Reasonably priced"
+      ],
+      "verified": true,
+      "source": "Justdial Verified",
+      "likes": 16,
+      "ownerResponse": {
+        "author": "Nakshatra Designer's",
+        "date": "15 Jun",
+        "text": "Thanks for the kind words."
+      }
+    },
+    {
+      "id": 208,
+      "name": "Anitha",
+      "location": "Salem",
+      "rating": 5,
+      "date": "19 Feb 2025",
+      "category": "Bridal Aari Work",
+      "comment": "I had a great experience with Nakshatra Designer's! They delivered my order right on time, which I really appreciated. Their service was quick and efficient, and the staff were very polite throughout the process. The management is excellent, ensuring everything runs smoothly. The quality of their work is high, with detailed finishing that exceeded my expectations. Plus, they offer customization options! Highly recommend!",
+      "tags": [
+        "High quality",
+        "Detailed finishing",
+        "Customisable",
+        "Quick service",
+        "On-time delivery",
+        "Polite staff",
+        "Good management"
+      ],
+      "verified": true,
+      "source": "Justdial Verified",
+      "likes": 20,
+      "ownerResponse": {
+        "author": "Nakshatra Designer's",
+        "date": "07 Jul",
+        "text": "Good to know the customization options worked well for you. Thanks for supporting us."
+      }
+    },
+    {
+      "id": 209,
+      "name": "Kishor",
+      "location": "Tiruchengode",
+      "rating": 5,
+      "date": "26 Jan 2025",
+      "category": "Custom Saree Blouse",
+      "comment": "Nakshatra Designers offers excellent tailoring and services at a reasonably priced. Their work is top-notch, and they provide great value for money. With their skilled team, you can trust them to handle all your stitching needs with efficiency and professionalism.",
+      "tags": [
+        "Good work",
+        "Reasonably priced",
+        "Top Notch"
+      ],
+      "verified": true,
+      "source": "Justdial Verified",
+      "likes": 11
+    },
+    {
+      "id": 101,
+      "name": "Selva Kumar",
+      "location": "Tiruchengode",
+      "rating": 5,
+      "date": "25 Dec 2024",
+      "category": "Custom Saree Blouse",
+      "comment": "Nakshatra Designer's provided excellent services. The quality of their work was top-notch, and the staff was friendly and knowledgeable. I highly recommend them for their good workmanship.",
+      "tags": [
+        "Good work",
+        "High quality",
+        "Polite staff"
+      ],
+      "verified": true,
+      "source": "Justdial Verified",
+      "likes": 18,
+      "ownerResponse": {
+        "author": "Nakshatra Designer's",
+        "date": "07 Jul",
+        "text": "Thanks for the kind words — we appreciate the feedback on our work and team."
+      }
+    },
+    {
+      "id": 102,
+      "name": "Kishor",
+      "location": "Tiruchengode",
+      "rating": 5,
+      "date": "22 Dec 2024",
+      "category": "Designer Frock",
+      "comment": "I recently had tailoring done at Nakshatra Designer's and I must say, the staff was extremely polite and the service was quick. The management was good, ensuring high quality and customizable options. The work done was excellent and the pricing was reasonable. Highly recommend!",
+      "tags": [
+        "Good work",
+        "High quality",
+        "Customisable",
+        "Quick service",
+        "Polite staff",
+        "Good management",
+        "Reasonably priced"
+      ],
+      "verified": true,
+      "source": "Justdial Verified",
+      "likes": 21
+    },
+    {
+      "id": 103,
+      "name": "RATHANA PPRIYA",
+      "location": "Tiruchengode",
+      "rating": 5,
+      "date": "07 Sept",
+      "category": "Bridal Aari Work",
+      "comment": "I like they work and they delivered within 5 days and the aari work was too good",
+      "tags": [
+        "Quick service",
+        "On-time delivery",
+        "Aari Work"
+      ],
+      "verified": true,
+      "source": "Justdial Verified",
+      "likes": 16,
+      "ownerResponse": {
+        "author": "Nakshatra Designer's",
+        "date": "07 Sept",
+        "text": "Good to hear the service worked well and arrived as promised."
+      }
+    },
+    {
+      "id": 104,
+      "name": "Vanitha",
+      "location": "Tiruchengode",
+      "rating": 5,
+      "date": "16 Dec 2024",
+      "category": "Custom Saree Blouse",
+      "comment": "Excellent",
+      "tags": [
+        "Good work",
+        "High quality",
+        "Quick service"
+      ],
+      "verified": true,
+      "source": "Justdial Verified",
+      "likes": 12,
+      "ownerResponse": {
+        "author": "Nakshatra Designer's",
+        "date": "07 Jul",
+        "text": "Great to hear you're happy."
+      }
+    },
+    {
+      "id": 105,
+      "name": "Anushya",
+      "location": "Tiruchengode",
+      "rating": 5,
+      "date": "18 May",
+      "category": "Custom Saree Blouse",
+      "comment": "Great quality tailoring and on-time delivery with reasonable pricing. Highly satisfied!",
+      "tags": [
+        "Good work",
+        "Quick service",
+        "On-time delivery",
+        "Reasonably priced"
+      ],
+      "verified": true,
+      "source": "Justdial Verified",
+      "likes": 14,
+      "ownerResponse": {
+        "author": "Nakshatra Designer's",
+        "date": "15 Jun",
+        "text": "Thanks for recognizing the reasonable pricing and good work."
+      }
+    },
+    {
+      "id": 106,
+      "name": "Sridevi Madhan",
+      "location": "Namakkal",
+      "rating": 5,
+      "date": "10 Feb 2025",
+      "category": "Bridal Aari Work",
+      "comment": "Quick service and on-time delivery with good management and courteous staff.",
+      "tags": [
+        "Quick service",
+        "On-time delivery",
+        "Good management"
+      ],
+      "verified": true,
+      "source": "Justdial Verified",
+      "likes": 10
+    },
+    {
+      "id": 107,
+      "name": "Jeeveeka",
+      "location": "Tiruchengode",
+      "rating": 5,
+      "date": "28 Dec 2024",
+      "category": "Custom Saree Blouse",
+      "comment": "Very good",
+      "tags": [
+        "Good work",
+        "Perfect Fitting"
+      ],
+      "verified": true,
+      "source": "Justdial Verified",
+      "likes": 8
+    },
+    {
+      "id": 108,
+      "name": "Yamini P",
+      "location": "Tiruchengode",
+      "rating": 5,
+      "date": "25 Dec 2024",
+      "category": "Saree-to-Frock Conversion",
+      "comment": "Good work and nice finishing on saree conversion.",
+      "tags": [
+        "Good work",
+        "Quality Stitching"
+      ],
+      "verified": true,
+      "source": "Justdial Verified",
+      "likes": 9
+    },
+    {
+      "id": 109,
+      "name": "Sivhani",
+      "location": "Tiruchengode West",
+      "rating": 5,
+      "date": "29 Dec 2024",
+      "category": "Bridal Aari Work",
+      "comment": "Beautiful Aari design work and perfect fit. Highly recommended!",
+      "tags": [
+        "Good work",
+        "Bridal Aari"
+      ],
+      "verified": true,
+      "source": "Justdial Verified",
+      "likes": 11
+    },
+    {
+      "id": 1,
+      "name": "Priya Rajendran",
+      "location": "Tiruchengode",
+      "rating": 5,
+      "date": "2 days ago",
+      "category": "Bridal Aari Work",
+      "comment": "Nakshatra Designer's stitched my bridal Aari work blouse perfectly! The gold zardozi detailing and fitting were flawless. Everyone at the wedding complimented the neckline finish. Highly recommend for any bride!",
+      "tags": [
+        "Bridal Aari",
+        "Perfect Fit",
+        "Flawless Detailing"
+      ],
+      "verified": true,
+      "source": "Verified Client",
+      "likes": 14
+    },
+    {
+      "id": 2,
+      "name": "Kavitha S.",
+      "location": "Namakkal",
+      "rating": 5,
+      "date": "1 week ago",
+      "category": "Saree-to-Frock Conversion",
+      "comment": "Converted my old mother's Kanjivaram silk saree into an umbrella flare maxi frock. The outcome is stunning! Fits like a glove with zero wastage of saree border.",
+      "tags": [
+        "Saree Reuse",
+        "Umbrella Flare",
+        "Zero Waste"
+      ],
+      "verified": true,
+      "source": "Verified Client",
+      "likes": 9
+    },
+    {
+      "id": 3,
+      "name": "Deepa V.",
+      "location": "Erode",
+      "rating": 5,
+      "date": "2 weeks ago",
+      "category": "Custom Saree Blouse",
+      "comment": "Very polite behavior and accurate measurements. Handed over 3 blouses for emergency delivery in 3 days, and they delivered right on time with flawless fitting. Outstanding craftsmanship!",
+      "tags": [
+        "Emergency Delivery",
+        "Polite Staff",
+        "Accurate Measurements"
+      ],
+      "verified": true,
+      "source": "Verified Client",
+      "likes": 11
+    },
+    {
+      "id": 4,
+      "name": "Sangeetha M.",
+      "location": "Tiruchengode West",
+      "rating": 5,
+      "date": "3 weeks ago",
+      "category": "Saree Pre-Pleating",
+      "comment": "Their saree pre-pleating and box folding service is a lifesaver! I wore my silk saree in under 1 minute for a function. Extremely neatly ironed and folded.",
+      "tags": [
+        "1-Min Draping",
+        "Box Folding",
+        "Neat Ironing"
+      ],
+      "verified": true,
+      "source": "Verified Client",
+      "likes": 7
+    },
+    {
+      "id": 5,
+      "name": "Meenakshi Sundaram",
+      "location": "Salem",
+      "rating": 5,
+      "date": "1 month ago",
+      "category": "Designer Frock",
+      "comment": "Got a custom box-pleated Anarkali frock stitched for my daughter. The finishing around the neckline and sleeves is neat with soft double cotton lining. Best boutique in Tiruchengode region!",
+      "tags": [
+        "Anarkali Frock",
+        "Cotton Lining",
+        "Soft Fabric"
+      ],
+      "verified": true,
+      "source": "Verified Client",
+      "likes": 15,
+      "likedBy": []
+    }
+  ],
   "users": [
     {
       "id": "6aa4fc2d23ec9259f5d8f957",

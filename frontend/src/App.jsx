@@ -257,11 +257,11 @@ export default function App() {
                       <Sparkles size={14} /> Tailoring Order Placed Successfully
                     </span>
 
-                    <h2 style={{ fontSize: '2.2rem', color: 'var(--primary-emerald)', fontFamily: 'var(--font-serif)', marginBottom: '0.4rem' }}>
+                    <h2 style={{ fontSize: '1.75rem', color: 'var(--primary-emerald)', fontFamily: 'var(--font-serif)', marginBottom: '0.4rem' }}>
                       Thank You, {confirmedOrder.customerName}!
                     </h2>
                     
-                    <p style={{ color: 'var(--text-muted)', fontSize: '1.02rem', marginBottom: '1.5rem' }}>
+                    <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', marginBottom: '1.25rem' }}>
                       Your order reference ID is <strong>#{confirmedOrder.id}</strong>. Our master tailors at Tiruchengode studio have received your custom requirements.
                     </p>
 

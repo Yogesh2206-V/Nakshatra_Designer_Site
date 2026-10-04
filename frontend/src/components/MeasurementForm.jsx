@@ -97,22 +97,22 @@ export default function MeasurementForm({ designSpecs, totalPrice, onBack, onOrd
   const garmentName = designSpecs?.category || 'Custom Tailoring';
 
   return (
-    <div className="section-container" style={{ maxWidth: '900px' }}>
-      <button className="btn-outline" style={{ marginBottom: '1.5rem' }} onClick={onBack}>
-        <ArrowLeft size={16} /> Back to Customizer
+    <div className="section-container" style={{ maxWidth: '850px', padding: '1.5rem 1rem' }}>
+      <button className="btn-outline" style={{ marginBottom: '1.2rem', padding: '0.45rem 0.9rem', fontSize: '0.84rem' }} onClick={onBack}>
+        <ArrowLeft size={15} /> Back to Customizer
       </button>
 
-      <div className="glass-card" style={{ padding: '2rem' }}>
+      <div className="glass-card" style={{ padding: '1.25rem' }}>
         
         {/* Header */}
-        <div style={{ borderBottom: '1px solid var(--border-light)', paddingBottom: '1.2rem', marginBottom: '1.8rem' }}>
+        <div style={{ borderBottom: '1px solid var(--border-light)', paddingBottom: '1rem', marginBottom: '1.5rem' }}>
           <span className="gold-badge" style={{ marginBottom: '0.4rem' }}>
             Final Step • Nakshatra Tailoring Order Setup
           </span>
-          <h2 style={{ fontSize: '1.8rem', color: 'var(--primary-emerald)', fontFamily: 'var(--font-serif)' }}>
+          <h2 style={{ fontSize: '1.5rem', color: 'var(--primary-emerald)', fontFamily: 'var(--font-serif)', marginTop: '0.2rem' }}>
             Customer Details & Garment Measurements
           </h2>
-          <p style={{ color: 'var(--text-muted)', fontSize: '0.92rem' }}>
+          <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem', marginTop: '0.25rem' }}>
             Provide your contact details and choose whether to enter measurements digitally or visit our Tiruchengode shop for in-person measurement & fitting trial.
           </p>
         </div>
@@ -120,42 +120,42 @@ export default function MeasurementForm({ designSpecs, totalPrice, onBack, onOrd
         <form onSubmit={handleSubmit}>
           
           {/* Section 1: Customer Info */}
-          <div style={{ marginBottom: '2rem' }}>
-            <h4 style={{ fontSize: '1.1rem', color: 'var(--primary-emerald)', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <User size={18} color="var(--accent-gold)" /> Customer Contact Info
+          <div style={{ marginBottom: '1.75rem' }}>
+            <h4 style={{ fontSize: '1rem', color: 'var(--primary-emerald)', marginBottom: '0.8rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+              <User size={16} color="var(--accent-gold)" /> Customer Contact Info
             </h4>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.85rem' }}>
               <div>
-                <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.3rem' }}>
+                <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, marginBottom: '0.25rem' }}>
                   Full Name *
                 </label>
                 <input
                   type="text"
                   required
-                  placeholder="Enter Name :"
+                  placeholder="Enter Name"
                   value={customer.name}
                   onChange={e => setCustomer({ ...customer, name: e.target.value })}
-                  style={{ width: '100%', padding: '0.75rem', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-light)', outline: 'none' }}
+                  style={{ width: '100%', padding: '0.65rem', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-light)', outline: 'none', fontSize: '16px' }}
                 />
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.3rem' }}>
+                <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, marginBottom: '0.25rem' }}>
                   WhatsApp / Phone Number *
                 </label>
                 <input
                   type="tel"
                   required
-                  placeholder="Enter Number:"
+                  placeholder="e.g. 9123514214"
                   value={customer.phone}
                   onChange={e => setCustomer({ ...customer, phone: e.target.value })}
-                  style={{ width: '100%', padding: '0.75rem', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-light)', outline: 'none' }}
+                  style={{ width: '100%', padding: '0.65rem', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-light)', outline: 'none', fontSize: '16px' }}
                 />
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.3rem' }}>
+                <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, marginBottom: '0.25rem' }}>
                   Email Address (Optional)
                 </label>
                 <input
@@ -163,13 +163,13 @@ export default function MeasurementForm({ designSpecs, totalPrice, onBack, onOrd
                   placeholder="e.g. customer@example.com"
                   value={customer.email}
                   onChange={e => setCustomer({ ...customer, email: e.target.value })}
-                  style={{ width: '100%', padding: '0.75rem', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-light)', outline: 'none' }}
+                  style={{ width: '100%', padding: '0.65rem', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-light)', outline: 'none', fontSize: '16px' }}
                 />
               </div>
             </div>
 
-            <div style={{ marginTop: '1rem' }}>
-              <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.3rem' }}>
+            <div style={{ marginTop: '0.85rem' }}>
+              <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, marginBottom: '0.25rem' }}>
                 Customer Address / Area *
               </label>
               <textarea
@@ -178,29 +178,29 @@ export default function MeasurementForm({ designSpecs, totalPrice, onBack, onOrd
                 placeholder="Door No, Street Name, Landmark, Tiruchengode"
                 value={customer.address}
                 onChange={e => setCustomer({ ...customer, address: e.target.value })}
-                style={{ width: '100%', padding: '0.75rem', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-light)', outline: 'none' }}
+                style={{ width: '100%', padding: '0.65rem', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-light)', outline: 'none', fontSize: '16px' }}
               />
             </div>
           </div>
 
           {/* Section 2: Submission Method Toggle */}
-          <div style={{ marginBottom: '2rem' }}>
-            <h4 style={{ fontSize: '1.1rem', color: 'var(--primary-emerald)', marginBottom: '1rem' }}>
+          <div style={{ marginBottom: '1.75rem' }}>
+            <h4 style={{ fontSize: '1rem', color: 'var(--primary-emerald)', marginBottom: '0.8rem' }}>
               Choose Fitting Reference Method
             </h4>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.85rem' }}>
               
               <div
                 className={`option-card ${submissionType === 'digital' ? 'selected' : ''}`}
                 onClick={() => setSubmissionType('digital')}
-                style={{ padding: '1.2rem' }}
+                style={{ padding: '1rem' }}
               >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.4rem' }}>
-                  <Ruler size={22} color="var(--primary-emerald)" />
-                  <h5 style={{ fontSize: '1rem', color: 'var(--primary-emerald)' }}>Enter Digital Measurements</h5>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.35rem' }}>
+                  <Ruler size={19} color="var(--primary-emerald)" />
+                  <h5 style={{ fontSize: '0.94rem', color: 'var(--primary-emerald)' }}>Enter Digital Measurements</h5>
                 </div>
-                <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>
+                <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
                   Provide exact dimensions (chest, waist, frock length, sleeve) online for our master tailor.
                 </p>
               </div>
@@ -208,13 +208,13 @@ export default function MeasurementForm({ designSpecs, totalPrice, onBack, onOrd
               <div
                 className={`option-card ${submissionType === 'pickup' ? 'selected' : ''}`}
                 onClick={() => setSubmissionType('pickup')}
-                style={{ padding: '1.2rem' }}
+                style={{ padding: '1rem' }}
               >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.4rem' }}>
-                  <Truck size={22} color="var(--accent-gold)" />
-                  <h5 style={{ fontSize: '1rem', color: 'var(--primary-emerald)' }}>In-Shop Fitting Visit / Fabric Drop</h5>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.35rem' }}>
+                  <Truck size={19} color="var(--accent-gold)" />
+                  <h5 style={{ fontSize: '0.94rem', color: 'var(--primary-emerald)' }}>In-Shop Fitting Visit / Fabric Drop</h5>
                 </div>
-                <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>
+                <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
                   Visit our shop in Tiruchengode to give measurements in-person or drop your silk saree / sample dress!
                 </p>
               </div>
@@ -222,182 +222,187 @@ export default function MeasurementForm({ designSpecs, totalPrice, onBack, onOrd
             </div>
           </div>
 
-          {/* In-App Error Notification Banner */}
+          {/* Error Banner */}
           {errorMessage && (
             <div style={{
               background: '#fef2f2',
-              border: '1.5px solid #fecaca',
+              border: '1px solid #fecaca',
               color: '#991b1b',
-              padding: '0.85rem 1.2rem',
-              borderRadius: '10px',
-              marginBottom: '1.5rem',
+              padding: '0.75rem 1rem',
+              borderRadius: '8px',
+              marginBottom: '1.25rem',
               display: 'flex',
               alignItems: 'center',
-              gap: '0.6rem',
-              fontSize: '0.92rem',
+              gap: '0.5rem',
+              fontSize: '0.88rem',
               fontWeight: 600
             }}>
-              <AlertCircle size={18} color="#dc2626" />
+              <AlertCircle size={16} color="#dc2626" />
               <span>{errorMessage}</span>
             </div>
           )}
 
           {/* Section 3: Digital Measurements Form */}
           {submissionType === 'digital' ? (
-            <div style={{ background: 'var(--bg-champagne)', padding: '1.5rem', borderRadius: 'var(--radius-md)', marginBottom: '2rem', border: '1px solid var(--border-light)' }}>
-              <h4 style={{ fontSize: '1rem', color: 'var(--primary-emerald)', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                <Ruler size={18} /> Body Measurement Specs for {garmentName} (All in Inches)
+            <div style={{ background: 'var(--bg-champagne)', padding: '1.2rem', borderRadius: 'var(--radius-md)', marginBottom: '1.75rem', border: '1px solid var(--border-light)' }}>
+              <h4 style={{ fontSize: '0.94rem', color: 'var(--primary-emerald)', marginBottom: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                <Ruler size={16} /> Body Measurement Specs for {garmentName} (Inches)
               </h4>
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '1rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '0.75rem' }}>
                 
                 <div>
-                  <label style={{ fontSize: '0.8rem', fontWeight: 600 }}>1. Full Bust / Chest (Inches)</label>
+                  <label style={{ fontSize: '0.76rem', fontWeight: 600 }}>1. Full Bust / Chest</label>
                   <input
                     type="number"
                     step="0.5"
                     value={measurements.bust}
                     onChange={e => setMeasurements({ ...measurements, bust: e.target.value })}
-                    style={{ width: '100%', padding: '0.6rem', marginTop: '0.2rem', borderRadius: '4px', border: '1px solid #cbd5e1' }}
+                    style={{ width: '100%', padding: '0.5rem', marginTop: '0.2rem', borderRadius: '4px', border: '1px solid #cbd5e1', fontSize: '16px' }}
                   />
                 </div>
 
                 <div>
-                  <label style={{ fontSize: '0.8rem', fontWeight: 600 }}>2. Upper Chest (Inches)</label>
+                  <label style={{ fontSize: '0.76rem', fontWeight: 600 }}>2. Upper Chest</label>
                   <input
                     type="number"
                     step="0.5"
                     value={measurements.upperChest}
                     onChange={e => setMeasurements({ ...measurements, upperChest: e.target.value })}
-                    style={{ width: '100%', padding: '0.6rem', marginTop: '0.2rem', borderRadius: '4px', border: '1px solid #cbd5e1' }}
+                    style={{ width: '100%', padding: '0.5rem', marginTop: '0.2rem', borderRadius: '4px', border: '1px solid #cbd5e1', fontSize: '16px' }}
                   />
                 </div>
 
                 <div>
-                  <label style={{ fontSize: '0.8rem', fontWeight: 600 }}>3. Under Bust (Inches)</label>
+                  <label style={{ fontSize: '0.76rem', fontWeight: 600 }}>3. Under Bust</label>
                   <input
                     type="number"
                     step="0.5"
                     value={measurements.underBust}
                     onChange={e => setMeasurements({ ...measurements, underBust: e.target.value })}
-                    style={{ width: '100%', padding: '0.6rem', marginTop: '0.2rem', borderRadius: '4px', border: '1px solid #cbd5e1' }}
+                    style={{ width: '100%', padding: '0.5rem', marginTop: '0.2rem', borderRadius: '4px', border: '1px solid #cbd5e1', fontSize: '16px' }}
                   />
                 </div>
 
                 <div>
-                  <label style={{ fontSize: '0.8rem', fontWeight: 600 }}>4. Waist / Bottom Fit</label>
+                  <label style={{ fontSize: '0.76rem', fontWeight: 600 }}>4. Waist / Fit</label>
                   <input
                     type="number"
                     step="0.5"
                     value={measurements.waist}
                     onChange={e => setMeasurements({ ...measurements, waist: e.target.value })}
-                    style={{ width: '100%', padding: '0.6rem', marginTop: '0.2rem', borderRadius: '4px', border: '1px solid #cbd5e1' }}
+                    style={{ width: '100%', padding: '0.5rem', marginTop: '0.2rem', borderRadius: '4px', border: '1px solid #cbd5e1', fontSize: '16px' }}
                   />
                 </div>
 
                 <div>
-                  <label style={{ fontSize: '0.8rem', fontWeight: 600 }}>5. {garmentName.includes('Frock') || garmentName.includes('Lehenga') ? 'Dress / Skirt Length' : 'Blouse / Top Length'}</label>
+                  <label style={{ fontSize: '0.76rem', fontWeight: 600 }}>5. {garmentName.includes('Frock') || garmentName.includes('Lehenga') ? 'Dress Length' : 'Blouse Length'}</label>
                   <input
                     type="number"
                     step="0.5"
                     value={measurements.blouseLength}
                     onChange={e => setMeasurements({ ...measurements, blouseLength: e.target.value })}
-                    style={{ width: '100%', padding: '0.6rem', marginTop: '0.2rem', borderRadius: '4px', border: '1px solid #cbd5e1' }}
+                    style={{ width: '100%', padding: '0.5rem', marginTop: '0.2rem', borderRadius: '4px', border: '1px solid #cbd5e1', fontSize: '16px' }}
                   />
                 </div>
 
                 <div>
-                  <label style={{ fontSize: '0.8rem', fontWeight: 600 }}>6. Shoulder Width</label>
+                  <label style={{ fontSize: '0.76rem', fontWeight: 600 }}>6. Shoulder</label>
                   <input
                     type="number"
                     step="0.5"
                     value={measurements.shoulder}
                     onChange={e => setMeasurements({ ...measurements, shoulder: e.target.value })}
-                    style={{ width: '100%', padding: '0.6rem', marginTop: '0.2rem', borderRadius: '4px', border: '1px solid #cbd5e1' }}
+                    style={{ width: '100%', padding: '0.5rem', marginTop: '0.2rem', borderRadius: '4px', border: '1px solid #cbd5e1', fontSize: '16px' }}
                   />
                 </div>
 
                 <div>
-                  <label style={{ fontSize: '0.8rem', fontWeight: 600 }}>7. Front Neck Depth</label>
+                  <label style={{ fontSize: '0.76rem', fontWeight: 600 }}>7. Front Neck</label>
                   <input
                     type="number"
                     step="0.5"
                     value={measurements.frontNeckDepth}
                     onChange={e => setMeasurements({ ...measurements, frontNeckDepth: e.target.value })}
-                    style={{ width: '100%', padding: '0.6rem', marginTop: '0.2rem', borderRadius: '4px', border: '1px solid #cbd5e1' }}
+                    style={{ width: '100%', padding: '0.5rem', marginTop: '0.2rem', borderRadius: '4px', border: '1px solid #cbd5e1', fontSize: '16px' }}
                   />
                 </div>
 
                 <div>
-                  <label style={{ fontSize: '0.8rem', fontWeight: 600 }}>8. Back Neck Depth</label>
+                  <label style={{ fontSize: '0.76rem', fontWeight: 600 }}>8. Back Neck</label>
                   <input
                     type="number"
                     step="0.5"
                     value={measurements.backNeckDepth}
                     onChange={e => setMeasurements({ ...measurements, backNeckDepth: e.target.value })}
-                    style={{ width: '100%', padding: '0.6rem', marginTop: '0.2rem', borderRadius: '4px', border: '1px solid #cbd5e1' }}
+                    style={{ width: '100%', padding: '0.5rem', marginTop: '0.2rem', borderRadius: '4px', border: '1px solid #cbd5e1', fontSize: '16px' }}
                   />
                 </div>
 
                 <div>
-                  <label style={{ fontSize: '0.8rem', fontWeight: 600 }}>9. Sleeve Length</label>
+                  <label style={{ fontSize: '0.76rem', fontWeight: 600 }}>9. Sleeve Length</label>
                   <input
                     type="number"
                     step="0.5"
                     value={measurements.sleeveLength}
                     onChange={e => setMeasurements({ ...measurements, sleeveLength: e.target.value })}
-                    style={{ width: '100%', padding: '0.6rem', marginTop: '0.2rem', borderRadius: '4px', border: '1px solid #cbd5e1' }}
+                    style={{ width: '100%', padding: '0.5rem', marginTop: '0.2rem', borderRadius: '4px', border: '1px solid #cbd5e1', fontSize: '16px' }}
                   />
                 </div>
 
                 <div>
-                  <label style={{ fontSize: '0.8rem', fontWeight: 600 }}>10. Sleeve Round / Bicep</label>
+                  <label style={{ fontSize: '0.76rem', fontWeight: 600 }}>10. Sleeve Round</label>
                   <input
                     type="number"
                     step="0.5"
                     value={measurements.sleeveRound}
                     onChange={e => setMeasurements({ ...measurements, sleeveRound: e.target.value })}
-                    style={{ width: '100%', padding: '0.6rem', marginTop: '0.2rem', borderRadius: '4px', border: '1px solid #cbd5e1' }}
+                    style={{ width: '100%', padding: '0.5rem', marginTop: '0.2rem', borderRadius: '4px', border: '1px solid #cbd5e1', fontSize: '16px' }}
                   />
                 </div>
 
               </div>
             </div>
           ) : (
-            <div style={{ background: '#fffdf5', padding: '1.5rem', borderRadius: 'var(--radius-md)', marginBottom: '2rem', border: '1px solid var(--border-gold)' }}>
-              <h4 style={{ fontSize: '1rem', color: 'var(--primary-emerald)', marginBottom: '0.6rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                <Truck size={18} color="var(--accent-gold)" /> Doorstep Sample Pickup Request
+            <div style={{ background: '#fffdf5', padding: '1.2rem', borderRadius: 'var(--radius-md)', marginBottom: '1.75rem', border: '1px solid var(--border-gold)' }}>
+              <h4 style={{ fontSize: '0.94rem', color: 'var(--primary-emerald)', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                <Truck size={16} color="var(--accent-gold)" /> In-Shop / Doorstep Reference Request
               </h4>
-              <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', marginBottom: '0.8rem' }}>
+              <p style={{ fontSize: '0.84rem', color: 'var(--text-muted)', marginBottom: '0.75rem' }}>
                 Our Nakshatra team member will contact you on WhatsApp (+91 {customer.phone || '9123500065'}) to collect your reference dress and fabric.
               </p>
               <textarea
                 rows={2}
-                placeholder="Pickup Instructions for Delivery Agent"
+                placeholder="Pickup or In-Shop fitting instructions"
                 value={pickupNotes}
                 onChange={e => setPickupNotes(e.target.value)}
-                style={{ width: '100%', padding: '0.7rem', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-light)' }}
+                style={{ width: '100%', padding: '0.65rem', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-light)', fontSize: '16px' }}
               />
             </div>
           )}
 
           {/* Price & Submit Button */}
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '1.5rem', borderTop: '1px solid var(--border-light)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '1.25rem', borderTop: '1px solid var(--border-light)', flexWrap: 'wrap', gap: '1rem' }}>
             <div>
-              <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Estimated Order Amount</span>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.2rem' }}>
+              <span style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>Estimated Order Amount</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', marginTop: '0.2rem' }}>
                 <button
                   type="button"
                   className="btn-outline"
-                  style={{ padding: '0.25rem 0.6rem', fontSize: '0.75rem', borderColor: 'var(--accent-gold)', display: 'flex', alignItems: 'center', gap: '0.3rem' }}
+                  style={{ padding: '0.2rem 0.55rem', fontSize: '0.72rem', borderColor: 'var(--accent-gold)', display: 'flex', alignItems: 'center', gap: '0.25rem' }}
                   onClick={() => onOpenEnquiry && onOpenEnquiry(`${garmentName} Order Estimate`)}
                 >
-                  <EnquiryIcon size={16} /> Enquire
+                  <EnquiryIcon size={14} /> Enquire
                 </button>
               </div>
             </div>
 
-            <button type="submit" className="btn-gold" style={{ padding: '0.9rem 2rem', fontSize: '1.05rem' }} disabled={isSubmitting}>
+            <button 
+              type="submit" 
+              className="btn-gold" 
+              style={{ padding: '0.65rem 1.4rem', fontSize: '0.9rem', flex: 1, minWidth: '200px', display: 'flex', justifyContent: 'center' }} 
+              disabled={isSubmitting}
+            >
               {isSubmitting ? 'Confirming Order...' : `Confirm ${garmentName} Order →`}
             </button>
           </div>
@@ -407,5 +412,3 @@ export default function MeasurementForm({ designSpecs, totalPrice, onBack, onOrd
     </div>
   );
 }
-
-

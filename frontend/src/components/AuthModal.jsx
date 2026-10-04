@@ -156,7 +156,7 @@ export default function AuthModal({ onClose, onLoginSuccess, message = '' }) {
             <Sparkles size={14} /> Nakshatra Designer's Member Access
           </span>
 
-          <h3 style={{ fontSize: '1.6rem', color: 'var(--primary-emerald)', fontFamily: 'var(--font-serif)', marginTop: '0.3rem' }}>
+          <h3 style={{ fontSize: '1.35rem', color: 'var(--primary-emerald)', fontFamily: 'var(--font-serif)', marginTop: '0.3rem' }}>
             {mode === 'signup' ? 'Create Your Account' : 'Welcome Back'}
           </h3>
 

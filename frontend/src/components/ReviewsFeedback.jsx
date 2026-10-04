@@ -2,11 +2,7 @@ import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Star, MessageSquare, ThumbsUp, Sparkles, CheckCircle2, User, Send, Filter, ChevronLeft, ChevronRight, Eye, X } from 'lucide-react';
 
-export default function ReviewsFeedback({ currentUser, onRequireAuth }) {
-  const [currentPage, setCurrentPage] = useState(1);
-  const reviewsPerPage = 1; // Show exactly 1 feedback at a time
-  const [selectedPhotoModal, setSelectedPhotoModal] = useState(null);
-  const [reviewsList, setReviewsList] = useState([
+const DEFAULT_REVIEWS = [
     {
       id: 201,
       name: 'Jeeva Annadurai',
@@ -362,7 +358,36 @@ export default function ReviewsFeedback({ currentUser, onRequireAuth }) {
       source: 'Verified Client',
       likes: 15
     }
-  ]);
+];
+
+export default function ReviewsFeedback({ currentUser, onRequireAuth }) {
+  const [currentPage, setCurrentPage] = useState(1);
+  const reviewsPerPage = 1; // Show exactly 1 feedback at a time
+  const [selectedPhotoModal, setSelectedPhotoModal] = useState(null);
+
+  // Reviews state with localStorage persistence for live submissions
+  const [reviewsList, setReviewsList] = useState(() => {
+    try {
+      const saved = localStorage.getItem('nakshatra_reviews_list');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          return parsed;
+        }
+      }
+    } catch (e) {}
+    return DEFAULT_REVIEWS;
+  });
+
+  // Track Helpful votes so each review can be marked helpful only once per user
+  const [votedHelpful, setVotedHelpful] = useState(() => {
+    try {
+      const saved = localStorage.getItem('nakshatra_voted_helpful');
+      return saved ? JSON.parse(saved) : [];
+    } catch (e) {
+      return [];
+    }
+  });
 
   // Form State for New Review
   const [newRating, setNewRating] = useState(5);
@@ -373,39 +398,54 @@ export default function ReviewsFeedback({ currentUser, onRequireAuth }) {
 
   const categories = ['All', 'Bridal Aari Work', 'Saree-to-Frock Conversion', 'Custom Saree Blouse', 'Saree Pre-Pleating', 'Designer Frock'];
 
+  // Add review directly and live
   const handleSubmitReview = (e) => {
     e.preventDefault();
     if (!newComment.trim()) return;
 
-    const action = () => {
-      const createdReview = {
-        id: Date.now(),
-        name: reviewerName || (currentUser ? currentUser.name : 'Valued Customer'),
-        location: 'Tiruchengode',
-        rating: newRating,
-        date: 'Just now',
-        category: newCategory,
-        comment: newComment,
-        verified: true,
-        likes: 0
-      };
-
-      setReviewsList([createdReview, ...reviewsList]);
-      setNewComment('');
-      setCurrentPage(1);
-      setSubmittedSuccess(true);
-      setTimeout(() => setSubmittedSuccess(false), 4000);
+    const authorName = (reviewerName && reviewerName.trim()) || (currentUser ? currentUser.name : 'Valued Customer');
+    const createdReview = {
+      id: 'rev_' + Date.now(),
+      name: authorName,
+      location: 'Tiruchengode',
+      rating: newRating,
+      date: 'Just now',
+      category: newCategory,
+      comment: newComment.trim(),
+      tags: ['Customer Feedback', 'Verified Fit'],
+      verified: true,
+      source: 'Verified Client',
+      likes: 0
     };
 
-    if (onRequireAuth) {
-      onRequireAuth(action, 'Please sign up or log in to post your customer review.');
-    } else {
-      action();
-    }
+    const updatedList = [createdReview, ...reviewsList];
+    setReviewsList(updatedList);
+    try {
+      localStorage.setItem('nakshatra_reviews_list', JSON.stringify(updatedList));
+    } catch (e) {}
+
+    setNewComment('');
+    if (!currentUser) setReviewerName('');
+    setCurrentPage(1);
+    setSubmittedSuccess(true);
+    setTimeout(() => setSubmittedSuccess(false), 5000);
   };
 
+  // Single-click Helpful handler with persistence
   const handleLike = (id) => {
-    setReviewsList(reviewsList.map(r => r.id === id ? { ...r, likes: r.likes + 1 } : r));
+    if (votedHelpful.includes(id)) return;
+
+    const nextVoted = [...votedHelpful, id];
+    setVotedHelpful(nextVoted);
+    try {
+      localStorage.setItem('nakshatra_voted_helpful', JSON.stringify(nextVoted));
+    } catch (e) {}
+
+    const updatedList = reviewsList.map(r => r.id === id ? { ...r, likes: (r.likes || 0) + 1 } : r);
+    setReviewsList(updatedList);
+    try {
+      localStorage.setItem('nakshatra_reviews_list', JSON.stringify(updatedList));
+    } catch (e) {}
   };
 
   const totalPages = Math.ceil(reviewsList.length / reviewsPerPage);
@@ -430,21 +470,21 @@ export default function ReviewsFeedback({ currentUser, onRequireAuth }) {
         <span className="gold-badge" style={{ marginBottom: '0.6rem' }}>
           <Sparkles size={14} /> Verified Customer Feedback
         </span>
-        <h2 style={{ fontSize: '2.4rem', color: 'var(--primary-emerald)', fontFamily: 'var(--font-serif)', marginBottom: '0.6rem' }}>
+        <h2 style={{ fontSize: '1.85rem', color: 'var(--primary-emerald)', fontFamily: 'var(--font-serif)', marginBottom: '0.5rem' }}>
           Customer Reviews & Rating Overview
         </h2>
-        <p style={{ color: 'var(--text-muted)', fontSize: '1.02rem', lineHeight: 1.6 }}>
+        <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', lineHeight: 1.6 }}>
           Read genuine reviews from thousands of happy customers across Tiruchengode, Salem, Namakkal, and Erode for Nakshatra Designer's custom tailoring services.
         </p>
       </div>
 
       {/* Ratings Summary Card */}
-      <div className="glass-card review-summary-card" style={{ padding: '2rem', marginBottom: '3rem' }}>
+      <div className="glass-card review-summary-card" style={{ padding: '1.8rem', marginBottom: '2.5rem' }}>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '2rem', alignItems: 'center' }}>
           
           {/* Overall Rating Block */}
           <div style={{ textAlign: 'center', borderRight: '1px solid var(--border-light)', paddingRight: '1rem' }}>
-            <h1 style={{ fontSize: '3.5rem', fontWeight: 800, color: 'var(--primary-emerald)', lineHeight: 1 }}>4.9</h1>
+            <h1 style={{ fontSize: '2.75rem', fontWeight: 800, color: 'var(--primary-emerald)', lineHeight: 1 }}>4.9</h1>
             <div style={{ display: 'flex', justifyContent: 'center', gap: '0.2rem', margin: '0.5rem 0' }}>
               {[1, 2, 3, 4, 5].map(star => (
                 <Star key={star} size={22} fill="#d4af37" color="#d4af37" />
@@ -618,74 +658,7 @@ export default function ReviewsFeedback({ currentUser, onRequireAuth }) {
         <div>
           <div id="reviews-list-start" />
 
-          {/* Top Feedback Header & Mini Controls */}
-          <div style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            marginBottom: '1rem',
-            padding: '0.6rem 1rem',
-            background: 'var(--bg-card)',
-            borderRadius: '12px',
-            border: '1px solid var(--border-light)'
-          }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <Sparkles size={16} color="var(--accent-gold)" />
-              <span style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--primary-emerald)' }}>
-                Feedback #{safeCurrentPage} <span style={{ fontWeight: 500, color: 'var(--text-muted)' }}>of {totalPages}</span>
-              </span>
-            </div>
 
-            <div style={{ display: 'flex', gap: '0.5rem' }}>
-              <button
-                onClick={() => handlePageChange(safeCurrentPage - 1)}
-                disabled={safeCurrentPage === 1}
-                title="Previous Feedback"
-                style={{
-                  padding: '0.35rem 0.75rem',
-                  fontSize: '0.8rem',
-                  fontWeight: 600,
-                  border: '1px solid',
-                  borderColor: safeCurrentPage === 1 ? 'var(--border-light)' : 'var(--accent-gold)',
-                  background: 'transparent',
-                  color: safeCurrentPage === 1 ? 'var(--text-muted)' : 'var(--text-dark)',
-                  opacity: safeCurrentPage === 1 ? 0.35 : 1,
-                  cursor: safeCurrentPage === 1 ? 'not-allowed' : 'pointer',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.25rem',
-                  borderRadius: '6px',
-                  transition: 'all 0.2s ease'
-                }}
-              >
-                <ChevronLeft size={14} /> Prev
-              </button>
-
-              <button
-                onClick={() => handlePageChange(safeCurrentPage + 1)}
-                disabled={safeCurrentPage >= totalPages}
-                title="Next Feedback"
-                style={{
-                  padding: '0.35rem 0.75rem',
-                  fontSize: '0.8rem',
-                  fontWeight: 600,
-                  border: '1px solid',
-                  borderColor: safeCurrentPage >= totalPages ? 'var(--border-light)' : 'var(--accent-gold)',
-                  background: 'transparent',
-                  color: safeCurrentPage >= totalPages ? 'var(--text-muted)' : 'var(--text-dark)',
-                  opacity: safeCurrentPage >= totalPages ? 0.35 : 1,
-                  cursor: safeCurrentPage >= totalPages ? 'not-allowed' : 'pointer',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.25rem',
-                  borderRadius: '6px',
-                  transition: 'all 0.2s ease'
-                }}
-              >
-                Next <ChevronRight size={14} />
-              </button>
-            </div>
-          </div>
 
           {/* Reviews List (1 Review per page) */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
@@ -841,10 +814,30 @@ export default function ReviewsFeedback({ currentUser, onRequireAuth }) {
                     <CheckCircle2 size={14} color="#10b981" /> Verified Review
                   </span>
                   <button
+                    type="button"
                     onClick={() => handleLike(rev.id)}
-                    style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--primary-emerald)', display: 'flex', alignItems: 'center', gap: '0.35rem', fontWeight: 600 }}
+                    disabled={votedHelpful.includes(rev.id)}
+                    style={{
+                      background: votedHelpful.includes(rev.id) ? 'rgba(16, 185, 129, 0.12)' : 'none',
+                      border: votedHelpful.includes(rev.id) ? '1px solid #10b981' : 'none',
+                      borderRadius: '6px',
+                      padding: '0.3rem 0.65rem',
+                      cursor: votedHelpful.includes(rev.id) ? 'default' : 'pointer',
+                      color: votedHelpful.includes(rev.id) ? '#059669' : 'var(--primary-emerald)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.35rem',
+                      fontWeight: 600,
+                      transition: 'all 0.2s ease'
+                    }}
+                    title={votedHelpful.includes(rev.id) ? 'You already marked this review as helpful' : 'Mark as helpful (1 vote allowed)'}
                   >
-                    <ThumbsUp size={14} /> Helpful ({rev.likes})
+                    <ThumbsUp 
+                      size={14} 
+                      fill={votedHelpful.includes(rev.id) ? '#059669' : 'none'} 
+                      color={votedHelpful.includes(rev.id) ? '#059669' : 'currentColor'} 
+                    /> 
+                    {votedHelpful.includes(rev.id) ? `Helpful (${rev.likes}) ✓` : `Helpful (${rev.likes})`}
                   </button>
                 </div>
               </div>

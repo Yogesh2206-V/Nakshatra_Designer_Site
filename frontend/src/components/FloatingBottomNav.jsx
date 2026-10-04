@@ -1,11 +1,27 @@
-import React from 'react';
-import { Search, Star, Home, Settings, ShieldCheck } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Star, Home, Settings, ShieldCheck } from 'lucide-react';
 import { isExactAdmin } from '../utils/adminAuth';
 
 export default function FloatingBottomNav({ activeTab, setActiveTab, onNavigate, currentUser }) {
-  const [isVisible, setIsVisible] = React.useState(true);
+  const [isVisible, setIsVisible] = useState(true);
+  const [isMobile, setIsMobile] = useState(() => 
+    typeof window !== 'undefined' ? window.innerWidth <= 768 : false
+  );
 
-  React.useEffect(() => {
+  // Track window resize to ensure it ONLY ever renders on mobile devices (<= 768px)
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Track scroll direction on mobile to auto-hide while scrolling down and reveal when stationary/scrolling up
+  useEffect(() => {
+    if (!isMobile) return;
+
     let lastScrollY = window.pageYOffset;
     let scrollTimer = null;
 
@@ -34,7 +50,12 @@ export default function FloatingBottomNav({ activeTab, setActiveTab, onNavigate,
       window.removeEventListener('scroll', handleScroll);
       clearTimeout(scrollTimer);
     };
-  }, []);
+  }, [isMobile]);
+
+  // Strictly do not render on desktop / website mode
+  if (!isMobile) {
+    return null;
+  }
 
   const navItems = [
     {
@@ -73,28 +94,29 @@ export default function FloatingBottomNav({ activeTab, setActiveTab, onNavigate,
   };
 
   return (
-    <div 
+    <nav 
       className="floating-bottom-nav"
+      aria-label="Mobile Navigation"
       style={{
         position: 'fixed',
         bottom: '12px',
         left: '50%',
-        transform: isVisible ? 'translateX(-50%) translateY(0)' : 'translateX(-50%) translateY(150%)',
+        transform: isVisible ? 'translateX(-50%) translateY(0)' : 'translateX(-50%) translateY(160%)',
         opacity: isVisible ? 1 : 0,
         pointerEvents: isVisible ? 'auto' : 'none',
-        transition: 'transform 0.32s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease',
-        zIndex: 1500,
-        background: 'rgba(255, 255, 255, 0.96)',
+        transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease',
+        zIndex: 2500,
+        background: 'rgba(255, 255, 255, 0.95)',
         borderRadius: '24px',
-        boxShadow: '0 8px 30px rgba(11, 43, 38, 0.2)',
+        boxShadow: '0 8px 30px rgba(0, 0, 0, 0.2), 0 2px 8px rgba(212, 175, 55, 0.15)',
         padding: '0.25rem 0.5rem',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-around',
-        border: '1.5px solid rgba(212, 175, 55, 0.4)',
+        border: '1px solid var(--accent-gold)',
         backdropFilter: 'blur(16px)',
         width: 'calc(100% - 24px)',
-        maxWidth: '390px'
+        maxWidth: '380px'
       }}
     >
       {navItems.map((item, index) => {
@@ -106,17 +128,18 @@ export default function FloatingBottomNav({ activeTab, setActiveTab, onNavigate,
             {index > 0 && (
               <div 
                 style={{
-                  height: '18px',
+                  height: '16px',
                   width: '1px',
-                  background: '#e2e8f0',
+                  background: 'var(--border-light)',
                   margin: '0 0.05rem',
-                  opacity: 0.7
+                  opacity: 0.6
                 }} 
               />
             )}
 
             <button
               onClick={() => handleTabClick(item.id, item.action)}
+              aria-label={item.label}
               style={{
                 background: 'none',
                 border: 'none',
@@ -126,7 +149,7 @@ export default function FloatingBottomNav({ activeTab, setActiveTab, onNavigate,
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
-                padding: '0.15rem 0.25rem',
+                padding: '0.2rem 0.25rem',
                 gap: '0.15rem',
                 transition: 'all 0.2s ease',
                 outline: 'none'
@@ -134,7 +157,6 @@ export default function FloatingBottomNav({ activeTab, setActiveTab, onNavigate,
             >
               {/* Icon Circle */}
               <div
-                className={isActive ? 'active-icon-circle' : ''}
                 style={{
                   width: '32px',
                   height: '32px',
@@ -142,8 +164,8 @@ export default function FloatingBottomNav({ activeTab, setActiveTab, onNavigate,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  background: isActive ? '#fef3c7' : 'transparent',
-                  color: isActive ? '#92400e' : '#64748b',
+                  background: isActive ? 'rgba(212, 175, 55, 0.18)' : 'transparent',
+                  color: isActive ? 'var(--primary-emerald)' : 'var(--text-muted)',
                   border: isActive ? '1px solid var(--accent-gold)' : '1px solid transparent',
                   transition: 'all 0.2s ease',
                   boxShadow: isActive ? '0 2px 6px rgba(212, 175, 55, 0.25)' : 'none'
@@ -151,7 +173,7 @@ export default function FloatingBottomNav({ activeTab, setActiveTab, onNavigate,
               >
                 <IconComponent 
                   size={17} 
-                  fill={isActive && item.id === 'reviews' ? '#92400e' : 'none'} 
+                  fill={isActive && item.id === 'reviews' ? 'var(--accent-gold)' : 'none'} 
                 />
               </div>
 
@@ -160,7 +182,7 @@ export default function FloatingBottomNav({ activeTab, setActiveTab, onNavigate,
                 style={{
                   fontSize: '0.68rem',
                   fontWeight: isActive ? 700 : 500,
-                  color: isActive ? '#92400e' : '#64748b',
+                  color: isActive ? 'var(--primary-emerald)' : 'var(--text-muted)',
                   letterSpacing: '0.01em',
                   whiteSpace: 'nowrap',
                   lineHeight: 1.1
@@ -172,6 +194,6 @@ export default function FloatingBottomNav({ activeTab, setActiveTab, onNavigate,
           </React.Fragment>
         );
       })}
-    </div>
+    </nav>
   );
 }

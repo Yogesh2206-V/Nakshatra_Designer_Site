@@ -54,7 +54,6 @@ export default function DesignGallery({ onSelectPreset, currentUser, onRequireAu
         return d.category.toLowerCase() === activeCategory.toLowerCase();
       });
 
-  // Directly opens WhatsApp with design specs
   const handleCustomizeOnWhatsApp = (item) => {
     const msg = `Hi Nakshatra Designer's, I want to customize and stitch this design:\n\n✨ *Design:* ${item.title}\n📂 *Collection:* ${item.category}\n🧵 *Fabric:* ${item.fabric || 'Custom Silk / Fabric'}\n🪡 *Embroidery:* ${item.embroidery || 'Aari / Delicate Work'}\n\nPlease let me know the customization options, fitting schedule, and stitching rates!`;
     const url = `https://wa.me/919123514214?text=${encodeURIComponent(msg)}`;
@@ -62,53 +61,65 @@ export default function DesignGallery({ onSelectPreset, currentUser, onRequireAu
   };
 
   return (
-    <div className="section-container">
+    <div className="section-container" style={{ paddingLeft: '1rem', paddingRight: '1rem' }}>
       {/* Title Header */}
-      <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-        <span className="gold-badge" style={{ marginBottom: '0.6rem' }}>
-          <Compass size={14} /> Nakshatra Designer Lookbook
+      <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+        <span className="gold-badge" style={{ marginBottom: '0.5rem' }}>
+          <Compass size={13} /> Nakshatra Designer Lookbook
         </span>
-        <h2 style={{ fontSize: '2.2rem', color: 'var(--primary-emerald)', fontFamily: 'var(--font-serif)' }}>
+        <h2 style={{ fontSize: '1.85rem', color: 'var(--primary-emerald)', fontFamily: 'var(--font-serif)', marginBottom: '0.4rem' }}>
           Designer Blouses, Frocks & Saree Conversions
         </h2>
-        <p style={{ color: 'var(--text-muted)', maxWidth: '680px', margin: '0.4rem auto 0 auto' }}>
+        <p style={{ color: 'var(--text-muted)', maxWidth: '680px', margin: '0 auto', fontSize: '0.92rem', lineHeight: 1.6 }}>
           Explore our handcrafted bridal Aari work blouses, designer frocks, and repurposed silk saree converted maxi gowns. Click any design to customize it with your own fabric & measurements!
         </p>
 
-        {/* Admin Quick Upload Action (Strictly visible ONLY for Specific Admin) */}
+        {/* Admin Quick Upload Action */}
         {isExactAdmin(currentUser) && (
-          <div style={{ marginTop: '1.2rem', display: 'flex', justifyContent: 'center' }}>
+          <div style={{ marginTop: '1rem', display: 'flex', justifyContent: 'center' }}>
             <button
               onClick={() => onNavigate && onNavigate('admin')}
-              className="btn-gold animate-bounce-subtle"
+              className="btn-gold"
               style={{
-                padding: '0.65rem 1.4rem',
-                fontSize: '0.92rem',
+                padding: '0.55rem 1.25rem',
+                fontSize: '0.88rem',
                 fontWeight: 700,
                 background: 'linear-gradient(135deg, #d97706 0%, #b45309 100%)',
                 color: '#ffffff',
-                border: '1.5px solid #fef08a',
+                border: '1px solid #fef08a',
                 boxShadow: '0 4px 15px rgba(217, 119, 6, 0.35)',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '0.5rem',
+                gap: '0.45rem',
                 borderRadius: '30px',
                 cursor: 'pointer'
               }}
             >
-              <Upload size={17} /> 👑 Admin: Upload & Add New Design Photo
+              <Upload size={15} /> 👑 Admin: Upload & Add New Design Photo
             </button>
           </div>
         )}
 
-        {/* Category Filters */}
-        <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '0.6rem', marginTop: '1.5rem' }}>
+        {/* Category Filters (Touch-friendly scrollable on mobile) */}
+        <div 
+          className="category-filter-bar"
+          style={{ 
+            display: 'flex', 
+            justifyContent: 'flex-start', 
+            gap: '0.45rem', 
+            marginTop: '1.25rem', 
+            overflowX: 'auto', 
+            paddingBottom: '0.4rem',
+            WebkitOverflowScrolling: 'touch',
+            scrollbarWidth: 'none'
+          }}
+        >
           {categories.map(cat => (
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
               className={`tab-button ${activeCategory === cat ? 'active' : ''}`}
-              style={{ fontSize: '0.88rem', padding: '0.5rem 1.1rem' }}
+              style={{ fontSize: '0.84rem', padding: '0.42rem 0.9rem', whiteSpace: 'nowrap', flexShrink: 0 }}
             >
               {cat}
             </button>
@@ -120,96 +131,93 @@ export default function DesignGallery({ onSelectPreset, currentUser, onRequireAu
       {loading ? (
         <div style={{ textAlign: 'center', padding: '3rem', color: 'var(--text-muted)' }}>Loading catalog...</div>
       ) : (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
+        <div className="design-gallery-grid">
           {filteredDesigns.map(item => (
             <div key={item.id} className="glass-card" style={{ overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
               
               {/* Image Container */}
               <div 
-                style={{ position: 'relative', height: '260px', overflow: 'hidden', cursor: 'pointer' }}
+                style={{ position: 'relative', height: '280px', overflow: 'hidden', cursor: 'pointer' }}
                 onClick={() => setSelectedDesignModal(item)}
                 title="Click to view full image"
               >
                 <img
                   src={item.image}
                   alt={item.title}
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease' }}
-                  onMouseOver={e => e.currentTarget.style.transform = 'scale(1.08)'}
+                  loading="lazy"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.4s ease' }}
+                  onMouseOver={e => e.currentTarget.style.transform = 'scale(1.06)'}
                   onMouseOut={e => e.currentTarget.style.transform = 'scale(1.0)'}
                 />
 
-                {/* Full View Button at Top-Left of Image */}
+                {/* Full View Button */}
                 <button
                   type="button"
                   onClick={(e) => { e.stopPropagation(); setSelectedDesignModal(item); }}
                   style={{
                     position: 'absolute',
-                    top: 12,
-                    left: 12,
+                    top: 10,
+                    left: 10,
                     background: 'rgba(11, 43, 38, 0.9)',
                     color: '#ffffff',
                     border: '1px solid var(--accent-gold)',
-                    padding: '0.3rem 0.75rem',
-                    borderRadius: '8px',
-                    fontSize: '0.78rem',
+                    padding: '0.25rem 0.65rem',
+                    borderRadius: '6px',
+                    fontSize: '0.74rem',
                     fontWeight: 700,
                     cursor: 'pointer',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '0.35rem',
+                    gap: '0.3rem',
                     backdropFilter: 'blur(6px)',
-                    boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
-                    transition: 'all 0.2s ease',
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
                     zIndex: 2
                   }}
-                  onMouseOver={e => { e.currentTarget.style.background = 'var(--accent-gold)'; e.currentTarget.style.color = '#000'; }}
-                  onMouseOut={e => { e.currentTarget.style.background = 'rgba(11, 43, 38, 0.9)'; e.currentTarget.style.color = '#ffffff'; }}
                   title="Click to open Full View"
                 >
-                  <Eye size={14} /> Full View
+                  <Eye size={13} /> Full View
                 </button>
 
                 {item.badge && (
-                  <span className="gold-badge" style={{ position: 'absolute', top: 12, right: 12, boxShadow: '0 4px 10px rgba(0,0,0,0.2)' }}>
-                    <Sparkles size={12} /> {item.badge}
+                  <span className="gold-badge" style={{ position: 'absolute', top: 10, right: 10, boxShadow: '0 2px 8px rgba(0,0,0,0.2)' }}>
+                    <Sparkles size={11} /> {item.badge}
                   </span>
                 )}
               </div>
 
               {/* Card Body */}
-              <div style={{ padding: '1.4rem', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+              <div style={{ padding: '1.1rem', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                 <div>
-                  <span style={{ fontSize: '0.78rem', textTransform: 'uppercase', color: 'var(--accent-gold)', fontWeight: 700, letterSpacing: '0.05em' }}>
+                  <span style={{ fontSize: '0.74rem', textTransform: 'uppercase', color: 'var(--accent-gold)', fontWeight: 700, letterSpacing: '0.05em' }}>
                     {item.category} Collection
                   </span>
-                  <h3 style={{ fontSize: '1.15rem', color: 'var(--primary-emerald)', marginTop: '0.2rem', marginBottom: '0.4rem', fontFamily: 'var(--font-serif)' }}>
+                  <h3 style={{ fontSize: '1.05rem', color: 'var(--primary-emerald)', marginTop: '0.2rem', marginBottom: '0.35rem', fontFamily: 'var(--font-serif)', lineHeight: 1.3 }}>
                     {item.title}
                   </h3>
-                  <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: 1.5, marginBottom: '1.2rem' }}>
+                  <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: 1.5, marginBottom: '0.9rem' }}>
                     {item.description || `Handcrafted ${item.category} customized for precision fit & elegance.`}
                   </p>
                 </div>
 
                 <div>
-                  <div className="stitching-rate-box" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', padding: '0.6rem 0.8rem', background: 'var(--bg-champagne)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-light)' }}>
-                    <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontWeight: 600 }}>Stitching Rate</span>
+                  <div className="stitching-rate-box" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem', padding: '0.45rem 0.65rem', background: 'var(--bg-champagne)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-light)' }}>
+                    <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 600 }}>Stitching Rate</span>
                     <button
                       className="btn-outline"
-                      style={{ padding: '0.2rem 0.5rem', fontSize: '0.72rem', borderColor: 'var(--accent-gold)', display: 'flex', alignItems: 'center', gap: '0.3rem' }}
+                      style={{ padding: '0.15rem 0.45rem', fontSize: '0.72rem', borderColor: 'var(--accent-gold)', display: 'flex', alignItems: 'center', gap: '0.25rem' }}
                       onClick={(e) => { e.stopPropagation(); onOpenEnquiry && onOpenEnquiry(item.title); }}
                     >
-                      <EnquiryIcon size={16} /> Enquire
+                      <EnquiryIcon size={14} /> Enquire
                     </button>
                   </div>
 
-                  {/* View Design Button with Gold Luxury Theme */}
                   <button
                     className="btn-gold"
-                    style={{ width: '100%', padding: '0.75rem', fontSize: '0.92rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}
+                    style={{ width: '100%', padding: '0.6rem', fontSize: '0.88rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.45rem' }}
                     onClick={() => setSelectedDesignModal(item)}
                     title="View Design Details & Photos"
                   >
-                    <Eye size={17} /> Full View & Details
+                    <Eye size={15} /> Full View & Details
                   </button>
                 </div>
               </div>
@@ -232,26 +240,26 @@ export default function DesignGallery({ onSelectPreset, currentUser, onRequireAu
             width: '100vw',
             height: '100vh',
             background: 'rgba(0, 0, 0, 0.85)',
-            backdropFilter: 'blur(10px)',
+            backdropFilter: 'blur(8px)',
             zIndex: 999999,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: '1.5rem'
+            padding: '0.75rem'
           }}
         >
           <div 
             onClick={e => e.stopPropagation()}
             style={{
               background: '#ffffff',
-              borderRadius: '24px',
-              border: '2px solid var(--accent-gold)',
-              boxShadow: '0 25px 60px rgba(0, 0, 0, 0.6), 0 0 30px rgba(212, 175, 55, 0.3)',
+              borderRadius: '18px',
+              border: '1.5px solid var(--accent-gold)',
+              boxShadow: '0 20px 50px rgba(0, 0, 0, 0.5)',
               width: '100%',
-              maxWidth: '820px',
-              maxHeight: '92vh',
+              maxWidth: '720px',
+              maxHeight: '90vh',
               overflowY: 'auto',
-              padding: '1.8rem',
+              padding: '1.25rem',
               position: 'relative',
               display: 'flex',
               flexDirection: 'column'
@@ -262,10 +270,10 @@ export default function DesignGallery({ onSelectPreset, currentUser, onRequireAu
               onClick={() => setSelectedDesignModal(null)}
               style={{
                 position: 'absolute',
-                top: '16px',
-                right: '16px',
-                width: '38px',
-                height: '38px',
+                top: '12px',
+                right: '12px',
+                width: '34px',
+                height: '34px',
                 borderRadius: '50%',
                 background: '#f1f5f9',
                 color: '#334155',
@@ -274,66 +282,63 @@ export default function DesignGallery({ onSelectPreset, currentUser, onRequireAu
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                transition: 'all 0.2s ease',
                 zIndex: 10
               }}
-              onMouseOver={e => { e.currentTarget.style.background = '#fee2e2'; e.currentTarget.style.color = '#dc2626'; }}
-              onMouseOut={e => { e.currentTarget.style.background = '#f1f5f9'; e.currentTarget.style.color = '#334155'; }}
               title="Close Full View"
             >
-              <X size={20} />
+              <X size={18} />
             </button>
 
-            {/* High Resolution Modal Image Display */}
+            {/* High Resolution Modal Image */}
             <div style={{ 
               background: '#0b2b26', 
-              borderRadius: '16px', 
+              borderRadius: '12px', 
               overflow: 'hidden', 
-              marginBottom: '1.4rem', 
+              marginBottom: '1rem', 
               border: '1px solid var(--border-light)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              minHeight: '340px',
-              maxHeight: '55vh'
+              maxHeight: '45vh',
+              minHeight: '220px'
             }}>
               <img
                 src={selectedDesignModal.image}
                 alt={selectedDesignModal.title}
-                style={{ maxWidth: '100%', maxHeight: '55vh', objectFit: 'contain', display: 'block' }}
+                style={{ maxWidth: '100%', maxHeight: '45vh', objectFit: 'contain', display: 'block' }}
               />
             </div>
 
             {/* Modal Content */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.6rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
               <span className="gold-badge">
                 <Sparkles size={12} /> {selectedDesignModal.category} Collection
               </span>
               {selectedDesignModal.badge && (
-                <span style={{ fontSize: '0.85rem', color: 'var(--accent-gold)', fontWeight: 700 }}>
+                <span style={{ fontSize: '0.8rem', color: 'var(--accent-gold)', fontWeight: 700 }}>
                   ★ {selectedDesignModal.badge}
                 </span>
               )}
             </div>
 
-            <h3 style={{ fontSize: '1.5rem', color: 'var(--primary-emerald)', fontFamily: 'var(--font-serif)', marginBottom: '0.6rem' }}>
+            <h3 style={{ fontSize: '1.25rem', color: 'var(--primary-emerald)', fontFamily: 'var(--font-serif)', marginBottom: '0.4rem' }}>
               {selectedDesignModal.title}
             </h3>
 
-            <p style={{ fontSize: '0.94rem', color: 'var(--text-dark)', lineHeight: 1.6, marginBottom: '1.4rem', opacity: 0.9 }}>
+            <p style={{ fontSize: '0.88rem', color: 'var(--text-dark)', lineHeight: 1.5, marginBottom: '1rem' }}>
               {selectedDesignModal.description || 'Custom tailored with premium lining, precision fit trial, and master craftsmanship at our Tiruchengode studio.'}
             </p>
 
-            {/* Fabric & Specs if available */}
+            {/* Fabric & Specs */}
             {(selectedDesignModal.fabric || selectedDesignModal.embroidery) && (
-              <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', marginBottom: '1.4rem', padding: '0.8rem 1rem', background: 'var(--bg-champagne)', borderRadius: '10px', border: '1px solid var(--border-light)' }}>
+              <div style={{ display: 'flex', gap: '0.8rem', flexWrap: 'wrap', marginBottom: '1rem', padding: '0.6rem 0.8rem', background: 'var(--bg-champagne)', borderRadius: '8px', border: '1px solid var(--border-light)' }}>
                 {selectedDesignModal.fabric && (
-                  <span style={{ fontSize: '0.86rem', color: '#475569' }}>
+                  <span style={{ fontSize: '0.8rem', color: '#475569' }}>
                     🧵 Fabric: <strong style={{ color: 'var(--primary-emerald)' }}>{selectedDesignModal.fabric}</strong>
                   </span>
                 )}
                 {selectedDesignModal.embroidery && (
-                  <span style={{ fontSize: '0.86rem', color: '#475569' }}>
+                  <span style={{ fontSize: '0.8rem', color: '#475569' }}>
                     ✨ Embroidery: <strong style={{ color: 'var(--primary-emerald)' }}>{selectedDesignModal.embroidery}</strong>
                   </span>
                 )}
@@ -341,24 +346,24 @@ export default function DesignGallery({ onSelectPreset, currentUser, onRequireAu
             )}
 
             {/* Modal Action Buttons */}
-            <div style={{ display: 'flex', gap: '0.8rem', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', gap: '0.6rem', flexWrap: 'wrap' }}>
               <button
                 className="btn-gold"
-                style={{ flex: 1, minWidth: '180px', padding: '0.85rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', cursor: 'pointer' }}
+                style={{ flex: 1, minWidth: '140px', padding: '0.65rem 0.8rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem', cursor: 'pointer', fontSize: '0.86rem' }}
                 onClick={() => {
                   handleCustomizeOnWhatsApp(selectedDesignModal);
                   setSelectedDesignModal(null);
                 }}
               >
-                <Scissors size={18} /> Customize on WhatsApp
+                <Scissors size={16} /> WhatsApp Design
               </button>
 
               <a
                 href="tel:+919123500065"
                 className="btn-emerald"
-                style={{ flex: 1, minWidth: '160px', padding: '0.85rem', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', textDecoration: 'none', fontWeight: 700 }}
+                style={{ flex: 1, minWidth: '140px', padding: '0.65rem 0.8rem', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem', textDecoration: 'none', fontWeight: 600, fontSize: '0.86rem' }}
               >
-                <PhoneCall size={18} /> Call Studio (+91 9123500065)
+                <PhoneCall size={16} /> Call Studio
               </a>
             </div>
           </div>
@@ -369,6 +374,3 @@ export default function DesignGallery({ onSelectPreset, currentUser, onRequireAu
     </div>
   );
 }
-
-
-
