@@ -62,6 +62,20 @@ app.get('/google:code.html', (req, res) => {
   res.type('text/html').send(`google-site-verification: google${req.params.code}.html`);
 });
 
+// Explicit robots.txt handler for Googlebot
+app.get('/robots.txt', (req, res) => {
+  res.type('text/plain').send(`User-agent: *\nAllow: /\n\nUser-agent: Googlebot\nAllow: /\n\nUser-agent: Googlebot-Image\nAllow: /\n\nSitemap: https://nakshatra-designer-site-1.onrender.com/sitemap.xml\n`);
+});
+
+// Explicit sitemap.xml handler
+app.get('/sitemap.xml', (req, res) => {
+  const sitemapFile = path.join(distPath, 'sitemap.xml');
+  if (fs.existsSync(sitemapFile)) {
+    return res.type('application/xml').sendFile(sitemapFile);
+  }
+  res.type('application/xml').send(`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url>\n    <loc>https://nakshatra-designer-site-1.onrender.com/</loc>\n    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>\n    <changefreq>daily</changefreq>\n    <priority>1.0</priority>\n  </url>\n</urlset>`);
+});
+
 // Serve frontend build if present
 if (fs.existsSync(distPath)) {
   app.use(express.static(distPath));
