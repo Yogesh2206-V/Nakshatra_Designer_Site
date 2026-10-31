@@ -19,25 +19,20 @@ app.use(express.urlencoded({ limit: '25mb', extended: true }));
 
 // Connect to MongoDB with fallback
 mongoose.set('bufferCommands', false);
-mongoose.connect(MONGO_URI, {
-  serverSelectionTimeoutMS: 8000
-})
-  .then(() => {
-    const maskedUri = MONGO_URI.includes('@') 
-      ? MONGO_URI.replace(/:([^:@]+)@/, ':****@') 
-      : MONGO_URI;
-    console.log(`🍃 Connected to MongoDB database: ${maskedUri}`);
+if (mongoose.connection.readyState === 0) {
+  mongoose.connect(MONGO_URI, {
+    serverSelectionTimeoutMS: 8000
   })
-  .catch((err) => {
-    console.warn(`⚠️ MongoDB connection error (using local database store fallback): ${err.message}`);
-  });
-
-// Routes
-app.use('/api/auth', authRoutes);
-app.use('/api/options', optionsRoutes);
-app.use('/api/designs', designsRoutes);
-app.use('/api/orders', ordersRoutes);
-app.use('/api/pickups', pickupsRoutes);
+    .then(() => {
+      const maskedUri = MONGO_URI.includes('@') 
+        ? MONGO_URI.replace(/:([^:@]+)@/, ':****@') 
+        : MONGO_URI;
+      console.log(`🍃 Connected to MongoDB database: ${maskedUri}`);
+    })
+    .catch((err) => {
+      console.warn(`⚠️ MongoDB connection error (using local database store fallback): ${err.message}`);
+    });
+}
 
 import path from 'path';
 import fs from 'fs';
@@ -47,8 +42,18 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const distPath = path.join(__dirname, '../frontend/dist');
 
+const SITE_URL = process.env.SITE_URL || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://nakshatra-designer-site.vercel.app');
+
+// Routes router
+const apiRouter = express.Router();
+apiRouter.use('/auth', authRoutes);
+apiRouter.use('/options', optionsRoutes);
+apiRouter.use('/designs', designsRoutes);
+apiRouter.use('/orders', ordersRoutes);
+apiRouter.use('/pickups', pickupsRoutes);
+
 // Health check
-app.get('/api/health', (req, res) => {
+apiRouter.get('/health', (req, res) => {
   res.json({
     status: 'online',
     service: "Nakshatra Designer's Blouse Stitching API",
@@ -57,6 +62,9 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+app.use('/api', apiRouter);
+app.use(apiRouter); // Fallback for environments rewriting without /api prefix
+
 // Google Search Console verification handler
 app.get('/google:code.html', (req, res) => {
   res.type('text/html').send(`google-site-verification: google${req.params.code}.html`);
@@ -64,7 +72,7 @@ app.get('/google:code.html', (req, res) => {
 
 // Explicit robots.txt handler for Googlebot
 app.get('/robots.txt', (req, res) => {
-  res.type('text/plain').send(`User-agent: *\nAllow: /\n\nUser-agent: Googlebot\nAllow: /\n\nUser-agent: Googlebot-Image\nAllow: /\n\nSitemap: https://nakshatra-designer-site-1.onrender.com/sitemap.xml\n`);
+  res.type('text/plain').send(`User-agent: *\nAllow: /\n\nUser-agent: Googlebot\nAllow: /\n\nUser-agent: Googlebot-Image\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml\n`);
 });
 
 // Explicit sitemap.xml handler
@@ -73,7 +81,7 @@ app.get('/sitemap.xml', (req, res) => {
   if (fs.existsSync(sitemapFile)) {
     return res.type('application/xml').sendFile(sitemapFile);
   }
-  res.type('application/xml').send(`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url>\n    <loc>https://nakshatra-designer-site-1.onrender.com/</loc>\n    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>\n    <changefreq>daily</changefreq>\n    <priority>1.0</priority>\n  </url>\n</urlset>`);
+  res.type('application/xml').send(`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url>\n    <loc>${SITE_URL}/</loc>\n    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>\n    <changefreq>daily</changefreq>\n    <priority>1.0</priority>\n  </url>\n</urlset>`);
 });
 
 // Serve frontend build if present
@@ -112,7 +120,7 @@ if (fs.existsSync(distPath)) {
         <div class="card">
           <span class="badge">● Server Active & Online</span>
           <h1>✨ Nakshatra Designer's API</h1>
-          <p>This is the <strong>Backend API server</strong> running on port <code>5000</code>.</p>
+          <p>This is the <strong>Backend API server</strong>.</p>
           <div class="links">
             <a class="link-btn" href="/api/health" target="_blank">
               <span>🩺 Health Check API</span>
@@ -134,6 +142,10 @@ if (fs.existsSync(distPath)) {
   });
 }
 
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`✨ Nakshatra Designer's Backend Server running on port ${PORT} (0.0.0.0)`);
-});
+if (!process.env.VERCEL && process.env.NODE_ENV !== 'test') {
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`✨ Nakshatra Designer's Backend Server running on port ${PORT} (0.0.0.0)`);
+  });
+}
+
+export default app;
